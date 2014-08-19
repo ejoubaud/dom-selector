@@ -1,0 +1,33 @@
+{
+  "name": "dom-selector",
+  "version": "0.0.0",
+  "main": "lib/dom-selector.js",
+  "description": "A nice UI for users to select dom elements",
+  "homepage": "https://github.com/ejoubaud/dom-selector",
+  "bugs": "https://github.com/ejoubaud/dom-selector/issues",
+  "author": {
+    "name": "Emmanuel Joubaud",
+    "email": "emmanuel.joubaud@gmail.com",
+    "url": "http://ejoubaud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ejoubaud/dom-selector"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-coffee": "~0.9.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-coffeelint": "~0.0.8",
+    "grunt-simple-mocha": "~0.4.0",
+    "should": "~3.1.2",
+    "matchdep": "~0.3.0",
+    "mocha-cakes": "~0.9.0",
+    "grunt": "~0.4.2"
+  }
+}
