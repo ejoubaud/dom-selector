@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Dom selector</title>
-	<link rel="stylesheet" type="text/css" href="dom-selector.css">
+	<link rel="stylesheet" type="text/css" href="../style/dom-selector.css">
 </head>
 <body>
 
@@ -137,6 +137,20 @@
 
 	<div class="dom-selector__starter">
 	</div>
+
+	<script type="text/javascript" src="../lib/dom-selector.js"></script>
+
+	<script type="text/javascript">
+		var button = document.querySelector('.dom-selector__starter');
+		button.addEventListener('click', function(ev) {
+			ev.stopPropagation();
+			if (domSelector.toggle()) {
+				button.className += ' dom-selector__starter--active';
+			} else {
+				button.className = button.className.replace(' dom-selector__starter--active', '');
+			}
+		});
+	</script>
 
 </body>
 </html>
