@@ -18,7 +18,11 @@
   margin: 0
 }
 
-.dom-selector__elem {
+.dom-selector__list li {
+  display: inline;
+}
+
+.dom-selector__button {
   display: inline-block;
   width: 5em;
   height: 2em;

@@ -68,15 +68,17 @@ module.exports = BarItem = (function() {
 
   BarItem.prototype.createItem = function() {
     this.elem = document.createElement("li");
-    this.elem.className = "dom-selector__elem";
-    this.elem.appendChild(this.createSpanWithClass(this.name(), "dom-selector__name"));
+    this.link = document.createElement("a");
+    this.link.className = "dom-selector__button";
+    this.link.appendChild(this.createSpanWithClass(this.name(), "dom-selector__name"));
     if (this.hasId()) {
-      this.elem.appendChild(this.createSpanWithClass(this.id(), "dom-selector__id"));
+      this.link.appendChild(this.createSpanWithClass(this.id(), "dom-selector__id"));
     }
     if (this.hasClasses()) {
-      this.elem.appendChild(this.createSpanWithClass(this.classList(), "dom-selector__classes"));
+      this.link.appendChild(this.createSpanWithClass(this.classList(), "dom-selector__classes"));
     }
-    this.elem.addEventListener('click', this.newSelectionFromBar);
+    this.link.addEventListener('click', this.newSelectionFromBar);
+    this.elem.appendChild(this.link);
     if (this.selected) {
       return this.showSelected();
     }
@@ -94,11 +96,11 @@ module.exports = BarItem = (function() {
 
   BarItem.prototype.unselect = function() {
     this.selected = false;
-    return $.removeClass(this.elem, 'dom-selector__selected');
+    return $.removeClass(this.link, 'dom-selector__selected');
   };
 
   BarItem.prototype.showSelected = function() {
-    return $.addClass(this.elem, 'dom-selector__selected');
+    return $.addClass(this.link, 'dom-selector__selected');
   };
 
   return BarItem;

@@ -20,11 +20,13 @@ module.exports = class BarItem
     @modelEl.nodeName.toLowerCase()
   createItem: ->
     @elem = document.createElement("li")
-    @elem.className = "dom-selector__elem"
-    @elem.appendChild(@createSpanWithClass(@name(), "dom-selector__name"))
-    @elem.appendChild(@createSpanWithClass(@id(), "dom-selector__id")) if @hasId()
-    @elem.appendChild(@createSpanWithClass(@classList(), "dom-selector__classes")) if @hasClasses()
-    @elem.addEventListener('click', @newSelectionFromBar)
+    @link = document.createElement("a")
+    @link.className = "dom-selector__button"
+    @link.appendChild(@createSpanWithClass(@name(), "dom-selector__name"))
+    @link.appendChild(@createSpanWithClass(@id(), "dom-selector__id")) if @hasId()
+    @link.appendChild(@createSpanWithClass(@classList(), "dom-selector__classes")) if @hasClasses()
+    @link.addEventListener('click', @newSelectionFromBar)
+    @elem.appendChild(@link)
     @showSelected() if @selected
   newSelectionFromBar: (ev) =>
     ev.stopPropagation()
@@ -34,6 +36,6 @@ module.exports = class BarItem
     @showSelected()
   unselect: ->
     @selected = false
-    $.removeClass(@elem, 'dom-selector__selected')
+    $.removeClass(@link, 'dom-selector__selected')
   showSelected: ->
-    $.addClass(@elem, 'dom-selector__selected')
+    $.addClass(@link, 'dom-selector__selected')
