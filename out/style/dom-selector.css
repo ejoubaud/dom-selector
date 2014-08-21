@@ -38,15 +38,3 @@
 .dom-selector__highlighted {
   border: 1px solid blue;
 }
-
-.dom-selector__starter {
-  position: fixed;
-  height: 2em;
-  width: 2em;
-  background-color: blue;
-  top: 0; right: 0;
-}
-
-.dom-selector__starter--active {
-  background-color: red;
-}
