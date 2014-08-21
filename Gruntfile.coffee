@@ -67,20 +67,6 @@ module.exports = (grunt)->
         tasks: ['coffeelint:test', 'coffee:test', 'simplemocha']
     clean: ['out/']
 
-  grunt.event.on 'watch', (action, files, target)->
-    grunt.log.writeln "#{target}: #{files} has #{action}"
-
-    # coffeelint
-    grunt.config ['coffeelint', target], src: files
-
-    # coffee
-    coffeeData = grunt.config ['coffee', target]
-    files = [files] if _.isString files
-    files = files.map (file)-> path.relative coffeeData.cwd, file
-    coffeeData.src = files
-
-    grunt.config ['coffee', target], coffeeData
-
   # tasks.
   grunt.registerTask 'compile', [
     'coffeelint'
