@@ -23,13 +23,18 @@ module.exports = (grunt)->
           level: 'error'
         max_line_length:
           level: 'warn'
-    coffee:
+    browserify:
       lib:
-        expand: true
-        cwd: 'src/lib/'
-        src: ['**/*.coffee']
-        dest: 'out/lib/'
-        ext: '.js'
+        files: [
+          expand: true
+          cwd: 'src/lib'
+          src: '*.coffee'
+          dest: 'out/lib'
+          ext: '.js'
+        ]
+        options:
+          transform: ['coffeeify']
+    coffee:
       test:
         expand: true
         cwd: 'src/test/'
@@ -56,7 +61,7 @@ module.exports = (grunt)->
         tasks: ['coffeelint:gruntfile']
       lib:
         files: ['src/lib/**/*.coffee']
-        tasks: ['coffeelint:lib', 'coffee:lib', 'simplemocha']
+        tasks: ['coffeelint:lib', 'browserify:lib', 'simplemocha']
       test:
         files: ['src/test/**/*.coffee']
         tasks: ['coffeelint:test', 'coffee:test', 'simplemocha']
@@ -79,7 +84,7 @@ module.exports = (grunt)->
   # tasks.
   grunt.registerTask 'compile', [
     'coffeelint'
-    'coffee'
+    'browserify'
   ]
 
   grunt.registerTask 'test', [
