@@ -9,126 +9,27 @@ Copyright (c) 2014 Emmanuel Joubaud
 Licensed under the MIT license.
  */
 'use strict';
-var $, Bar, BarItem, SelectionMode, addClass, domSelector, hasParent, removeClass,
+var SelectionMode, domSelector, exports;
+
+SelectionMode = require('./dom-selector/selection-mode.coffee');
+
+domSelector = new SelectionMode();
+
+if (typeof window === 'undefined') {
+  exports = domSelector;
+} else {
+  window.domSelector = domSelector;
+}
+
+
+
+},{"./dom-selector/selection-mode.coffee":5}],2:[function(require,module,exports){
+var $, BarItem,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-$ = $ || function(sel) {
-  return document.querySelectorAll.call(document, sel);
-};
+$ = require('./dom-utils.coffee');
 
-$.each = $.each || function(array, iterator) {
-  return Array.prototype.forEach.call(array, function(idx, elem) {
-    return iterator.call(array, elem, idx);
-  });
-};
-
-$.inArray = $.inArray || function(val, array, idx) {
-  return Array.prototype.indexOf.call(array, val, idx);
-};
-
-removeClass = function(el, clazz) {
-  var regex;
-  regex = new RegExp("(^| )" + clazz + '($| )', 'g');
-  return el.className = el.className.replace(regex, '');
-};
-
-addClass = function(el, clazz) {
-  return el.className += ' ' + clazz;
-};
-
-hasParent = function(el, potentialParent) {
-  if (el.parentNode) {
-    return el.parentNode === potentialParent || hasParent(el.parentNode, potentialParent);
-  } else {
-    return false;
-  }
-};
-
-Bar = (function() {
-  function Bar(selectionMode, options) {
-    var barClass, listClass;
-    this.selectionMode = selectionMode;
-    if (options == null) {
-      options = {};
-    }
-    barClass = options.barClass || 'dom-selector__bar';
-    listClass = options.listClass || 'dom-selector__list';
-    this.createElement(barClass, listClass);
-    this.activeClass = barClass + '--active';
-    this.barItem = options.barItemConstructor || BarItem;
-    this.visible = false;
-    this.referencedElems = [];
-    this.barElems = [];
-  }
-
-  Bar.prototype.createElement = function(barClass, listClass) {
-    this.element = document.createElement("div");
-    addClass(this.element, barClass);
-    this.list = document.createElement("ul");
-    addClass(this.list, listClass);
-    return this.element.appendChild(this.list);
-  };
-
-  Bar.prototype.show = function() {
-    document.body.appendChild(this.element);
-    return this.visible = true;
-  };
-
-  Bar.prototype.hide = function() {
-    document.body.removeChild(this.element);
-    return this.visible = false;
-  };
-
-  Bar.prototype.reset = function(newEl) {
-    this.referencedElems = [];
-    this.barElems = [];
-    this.tip = this.selected = newEl;
-    this.list.innerHTML = '';
-    return this.generateListFrom(newEl);
-  };
-
-  Bar.prototype.generateListFrom = function(el, selected) {
-    var barElem, barItem;
-    if (selected == null) {
-      selected = true;
-    }
-    if (el.parentElement && el.nodeName.toLowerCase() !== 'body') {
-      this.generateListFrom(el.parentNode, false);
-    }
-    barItem = new this.barItem(el, this, selected);
-    barElem = barItem.elem;
-    this.referencedElems.push(el);
-    this.barElems.push(barItem);
-    this.selectedBarElem = barItem;
-    return this.list.appendChild(barElem);
-  };
-
-  Bar.prototype.newSelectionFromBar = function(bodyEl) {
-    this.selectionMode.newSelection(bodyEl);
-    return this.newSelection(bodyEl);
-  };
-
-  Bar.prototype.newSelection = function(newEl) {
-    var idx;
-    if (this.selectedBarElem) {
-      this.selectedBarElem.unselect();
-    }
-    if (this.selected === newEl) {
-      return this.selected = this.selectedBarElem = null;
-    } else if ((idx = $.inArray(newEl, this.referencedElems)) >= 0) {
-      this.selectedBarElem = this.barElems[idx];
-      this.selectedBarElem.select();
-      return this.selected = newEl;
-    } else {
-      return this.reset(newEl);
-    }
-  };
-
-  return Bar;
-
-})();
-
-BarItem = (function() {
+module.exports = BarItem = (function() {
   function BarItem(modelEl, bar, selected) {
     this.modelEl = modelEl;
     this.bar = bar;
@@ -193,18 +94,160 @@ BarItem = (function() {
 
   BarItem.prototype.unselect = function() {
     this.selected = false;
-    return removeClass(this.elem, 'dom-selector__selected');
+    return $.removeClass(this.elem, 'dom-selector__selected');
   };
 
   BarItem.prototype.showSelected = function() {
-    return addClass(this.elem, 'dom-selector__selected');
+    return $.addClass(this.elem, 'dom-selector__selected');
   };
 
   return BarItem;
 
 })();
 
-SelectionMode = (function() {
+
+
+},{"./dom-utils.coffee":4}],3:[function(require,module,exports){
+var $, Bar, BarItem;
+
+$ = require('./dom-utils.coffee');
+
+BarItem = require('./bar-item.coffee');
+
+module.exports = Bar = (function() {
+  function Bar(selectionMode, options) {
+    var barClass, listClass;
+    this.selectionMode = selectionMode;
+    if (options == null) {
+      options = {};
+    }
+    barClass = options.barClass || 'dom-selector__bar';
+    listClass = options.listClass || 'dom-selector__list';
+    this.createElement(barClass, listClass);
+    this.activeClass = barClass + '--active';
+    this.barItem = options.barItemConstructor || BarItem;
+    this.visible = false;
+    this.referencedElems = [];
+    this.barElems = [];
+  }
+
+  Bar.prototype.createElement = function(barClass, listClass) {
+    this.element = document.createElement("div");
+    this.element.className = barClass;
+    this.list = document.createElement("ul");
+    this.list.className = listClass;
+    return this.element.appendChild(this.list);
+  };
+
+  Bar.prototype.show = function() {
+    document.body.appendChild(this.element);
+    return this.visible = true;
+  };
+
+  Bar.prototype.hide = function() {
+    document.body.removeChild(this.element);
+    return this.visible = false;
+  };
+
+  Bar.prototype.reset = function(newEl) {
+    this.referencedElems = [];
+    this.barElems = [];
+    this.tip = this.selected = newEl;
+    this.list.innerHTML = '';
+    return this.generateListFrom(newEl);
+  };
+
+  Bar.prototype.generateListFrom = function(el, selected) {
+    var barElem, barItem;
+    if (selected == null) {
+      selected = true;
+    }
+    if (el.parentElement && el.nodeName.toLowerCase() !== 'body') {
+      this.generateListFrom(el.parentNode, false);
+    }
+    barItem = new this.barItem(el, this, selected);
+    barElem = barItem.elem;
+    this.referencedElems.push(el);
+    this.barElems.push(barItem);
+    this.selectedBarElem = barItem;
+    return this.list.appendChild(barElem);
+  };
+
+  Bar.prototype.newSelectionFromBar = function(bodyEl) {
+    this.selectionMode.newSelection(bodyEl);
+    return this.newSelection(bodyEl);
+  };
+
+  Bar.prototype.newSelection = function(newEl) {
+    var idx;
+    if (this.selectedBarElem) {
+      this.selectedBarElem.unselect();
+    }
+    if (this.selected === newEl) {
+      return this.selected = this.selectedBarElem = null;
+    } else if ((idx = $.inArray(newEl, this.referencedElems)) >= 0) {
+      this.selectedBarElem = this.barElems[idx];
+      this.selectedBarElem.select();
+      return this.selected = newEl;
+    } else {
+      return this.reset(newEl);
+    }
+  };
+
+  return Bar;
+
+})();
+
+
+
+},{"./bar-item.coffee":2,"./dom-utils.coffee":4}],4:[function(require,module,exports){
+module.exports = {
+  removeClass: function(el, clazz) {
+    var regex;
+    regex = new RegExp("(^| )" + clazz + '($| )', 'g');
+    return el.className = el.className.replace(regex, '');
+  },
+  addClass: function(el, clazz) {
+    return el.className += ' ' + clazz;
+  },
+  hasParent: function(el, potentialParent) {
+    if (el.parentNode) {
+      return el.parentNode === potentialParent || this.hasParent(el.parentNode, potentialParent);
+    } else {
+      return false;
+    }
+  }
+};
+
+if (this.$ && this.$.each && this.$.inArray) {
+  module.exports.$ = this.$;
+  module.exports.each = this.$.each;
+  module.exports.inArray = this.$.inArray;
+} else {
+  module.exports.$ = function(sel) {
+    return document.querySelectorAll.call(document, sel);
+  };
+  module.exports.each = function(array, iterator) {
+    return Array.prototype.forEach.call(array, function(idx, elem) {
+      return iterator.call(array, elem, idx);
+    });
+  };
+  module.exports.inArray = function(val, array, idx) {
+    return Array.prototype.indexOf.call(array, val, idx);
+  };
+}
+
+
+
+},{}],5:[function(require,module,exports){
+var $, Bar, SelectionMode,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+$ = require('./dom-utils.coffee');
+
+Bar = require('./bar.coffee');
+
+module.exports = SelectionMode = (function() {
   function SelectionMode() {
     this.selectDom = __bind(this.selectDom, this);
     this.selected = null;
@@ -239,7 +282,7 @@ SelectionMode = (function() {
 
   SelectionMode.prototype.selectDom = function(ev) {
     ev.stopPropagation();
-    if (hasParent(ev.target, this.bar.element)) {
+    if ($.hasParent(ev.target, this.bar.element)) {
       return false;
     }
     this.bar.newSelection(ev.target);
@@ -261,13 +304,13 @@ SelectionMode = (function() {
 
   SelectionMode.prototype.hideSelection = function() {
     if (this.selected) {
-      return removeClass(this.selected, this.selectedClass);
+      return $.removeClass(this.selected, this.selectedClass);
     }
   };
 
   SelectionMode.prototype.showSelection = function() {
     if (this.selected) {
-      return addClass(this.selected, this.selectedClass);
+      return $.addClass(this.selected, this.selectedClass);
     }
   };
 
@@ -275,14 +318,6 @@ SelectionMode = (function() {
 
 })();
 
-domSelector = new SelectionMode();
-
-if (typeof exports === 'undefined') {
-  window.domSelector = domSelector;
-} else {
-  exports.modules = domSelector;
-}
 
 
-
-},{}]},{},[1]);
+},{"./bar.coffee":3,"./dom-utils.coffee":4}]},{},[1]);
