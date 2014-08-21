@@ -3,19 +3,16 @@ BarItem = require('./bar-item.coffee')
 
 module.exports = class Bar
   constructor: (@selectionMode, options = {}) ->
-    barClass = options.barClass || 'dom-selector__bar'
-    listClass = options.listClass || 'dom-selector__list'
-    @createElement(barClass, listClass)
-    @activeClass = barClass + '--active'
+    @createElement()
     @barItem = options.barItemConstructor || BarItem
     @visible = false
     @referencedElems = []
     @barElems = []
-  createElement: (barClass, listClass) ->
+  createElement: ->
     @element = document.createElement("div")
-    @element.className = barClass
+    @element.className = "dom-selector__bar"
     @list = document.createElement("ul")
-    @list.className = listClass
+    @list.className = "dom-selector__list"
     @element.appendChild(@list)
   show: ->
     document.body.appendChild(@element)

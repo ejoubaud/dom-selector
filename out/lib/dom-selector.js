@@ -116,26 +116,22 @@ BarItem = require('./bar-item.coffee');
 
 module.exports = Bar = (function() {
   function Bar(selectionMode, options) {
-    var barClass, listClass;
     this.selectionMode = selectionMode;
     if (options == null) {
       options = {};
     }
-    barClass = options.barClass || 'dom-selector__bar';
-    listClass = options.listClass || 'dom-selector__list';
-    this.createElement(barClass, listClass);
-    this.activeClass = barClass + '--active';
+    this.createElement();
     this.barItem = options.barItemConstructor || BarItem;
     this.visible = false;
     this.referencedElems = [];
     this.barElems = [];
   }
 
-  Bar.prototype.createElement = function(barClass, listClass) {
+  Bar.prototype.createElement = function() {
     this.element = document.createElement("div");
-    this.element.className = barClass;
+    this.element.className = "dom-selector__bar";
     this.list = document.createElement("ul");
-    this.list.className = listClass;
+    this.list.className = "dom-selector__list";
     return this.element.appendChild(this.list);
   };
 
