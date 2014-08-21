@@ -96,11 +96,11 @@ module.exports = BarItem = (function() {
 
   BarItem.prototype.unselect = function() {
     this.selected = false;
-    return $.removeClass(this.link, 'dom-selector__selected');
+    return $.removeClass(this.link, 'dom-selector__button--selected');
   };
 
   BarItem.prototype.showSelected = function() {
-    return $.addClass(this.link, 'dom-selector__selected');
+    return $.addClass(this.link, 'dom-selector__button--selected');
   };
 
   return BarItem;

@@ -36,6 +36,6 @@ module.exports = class BarItem
     @showSelected()
   unselect: ->
     @selected = false
-    $.removeClass(@link, 'dom-selector__selected')
+    $.removeClass(@link, 'dom-selector__button--selected')
   showSelected: ->
-    $.addClass(@link, 'dom-selector__selected')
+    $.addClass(@link, 'dom-selector__button--selected')
