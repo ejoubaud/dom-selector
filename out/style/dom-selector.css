@@ -24,21 +24,28 @@
 .dom-selector__button {
   position: relative;
   display: inline-block;
-  width: 5em;
   height: 2em;
   line-height: 2em;
   margin: 0;
   padding: 0 .5em;
   white-space: nowrap;
-  background-color: #BDC3C7;
   color: white;
   cursor: pointer;
-  box-shadow: 0 5px 0 #6C7A89;
   transition: background-color .3s ease-out;
   -webkit-transition: background-color .3s ease-out;
 }
 
-.dom-selector__button:after {
+.dom-selector__button:hover {
+  top: 2px;
+}
+
+.dom-selector__elem {
+  width: 5em;
+  background-color: #BDC3C7;
+  box-shadow: 0 5px 0 #6C7A89;
+}
+
+.dom-selector__elem:after {
   content: ' ';
   position: absolute;
   top: 0;
@@ -51,24 +58,23 @@
   -webkit-transition: border-color .3s ease-out;
 }
 
-.dom-selector__button:hover {
+.dom-selector__elem:hover {
   background-color: grey;
   box-shadow: 0 3px 0 black;
-  top: 2px;
 }
 
-.dom-selector__button:hover:after {
+.dom-selector__elem:hover:after {
   border-right-color: grey;
 }
 
-.dom-selector__button--selected,
-.dom-selector__button--selected:hover {
+.dom-selector__elem--selected,
+.dom-selector__elem--selected:hover {
   background-color: #F22613;
   box-shadow: 0 5px 0 #96281B;
 }
 
-.dom-selector__button--selected:after,
-.dom-selector__button--selected:hover:after {
+.dom-selector__elem--selected:after,
+.dom-selector__elem--selected:hover:after {
   border-right-color: #F22613;
 }
 

@@ -69,7 +69,7 @@ module.exports = BarItem = (function() {
   BarItem.prototype.createItem = function() {
     this.elem = document.createElement("li");
     this.link = document.createElement("a");
-    this.link.className = "dom-selector__button";
+    this.link.className = "dom-selector__button dom-selector__elem";
     this.link.appendChild(this.createSpanWithClass(this.name(), "dom-selector__name"));
     if (this.hasId()) {
       this.link.appendChild(this.createSpanWithClass(this.id(), "dom-selector__id"));
@@ -96,11 +96,11 @@ module.exports = BarItem = (function() {
 
   BarItem.prototype.unselect = function() {
     this.selected = false;
-    return $.removeClass(this.link, 'dom-selector__button--selected');
+    return $.removeClass(this.link, 'dom-selector__elem--selected');
   };
 
   BarItem.prototype.showSelected = function() {
-    return $.addClass(this.link, 'dom-selector__button--selected');
+    return $.addClass(this.link, 'dom-selector__elem--selected');
   };
 
   return BarItem;

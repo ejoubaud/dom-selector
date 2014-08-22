@@ -21,7 +21,7 @@ module.exports = class BarItem
   createItem: ->
     @elem = document.createElement("li")
     @link = document.createElement("a")
-    @link.className = "dom-selector__button"
+    @link.className = "dom-selector__button dom-selector__elem"
     @link.appendChild(@createSpanWithClass(@name(), "dom-selector__name"))
     @link.appendChild(@createSpanWithClass(@id(), "dom-selector__id")) if @hasId()
     @link.appendChild(@createSpanWithClass(@classList(), "dom-selector__classes")) if @hasClasses()
@@ -36,6 +36,6 @@ module.exports = class BarItem
     @showSelected()
   unselect: ->
     @selected = false
-    $.removeClass(@link, 'dom-selector__button--selected')
+    $.removeClass(@link, 'dom-selector__elem--selected')
   showSelected: ->
-    $.addClass(@link, 'dom-selector__button--selected')
+    $.addClass(@link, 'dom-selector__elem--selected')
