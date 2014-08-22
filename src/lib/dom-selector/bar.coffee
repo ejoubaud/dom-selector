@@ -11,6 +11,16 @@ module.exports = class Bar
   createElement: ->
     @element = document.createElement("div")
     @element.className = "dom-selector__bar"
+    @createControls()
+    @createList()
+  createControls: ->
+    content = ok: "&#10003;", cancel: "&#10007;"
+    $.each ['cancel', 'ok'], (i, name) =>
+      c = @["#{name}Control"] = document.createElement("a")
+      c.className = "dom-selector__button dom-selector__control dom-selector__#{name}-control"
+      c.innerHTML = content[name]
+      @element.appendChild(c)
+  createList: ->
     @list = document.createElement("ul")
     @list.className = "dom-selector__list"
     @element.appendChild(@list)

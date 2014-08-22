@@ -72,6 +72,10 @@
   border-right-color: #F22613;
 }
 
+.dom-selector__control {
+  float: right;
+}
+
 .dom-selector__selected {
   border: 1px solid red;
 }

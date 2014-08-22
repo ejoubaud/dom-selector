@@ -132,6 +132,28 @@ module.exports = Bar = (function() {
   Bar.prototype.createElement = function() {
     this.element = document.createElement("div");
     this.element.className = "dom-selector__bar";
+    this.createControls();
+    return this.createList();
+  };
+
+  Bar.prototype.createControls = function() {
+    var content;
+    content = {
+      ok: "&#10003;",
+      cancel: "&#10007;"
+    };
+    return $.each(['cancel', 'ok'], (function(_this) {
+      return function(i, name) {
+        var c;
+        c = _this["" + name + "Control"] = document.createElement("a");
+        c.className = "dom-selector__button dom-selector__control dom-selector__" + name + "-control";
+        c.innerHTML = content[name];
+        return _this.element.appendChild(c);
+      };
+    })(this));
+  };
+
+  Bar.prototype.createList = function() {
     this.list = document.createElement("ul");
     this.list.className = "dom-selector__list";
     return this.element.appendChild(this.list);
