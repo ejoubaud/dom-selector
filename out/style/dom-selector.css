@@ -1,20 +1,19 @@
 .dom-selector__bar {
-  width: 100%;
-  height: 2.5em;
-  padding: .25em 0;
-  background: ghostwhite;
-  margin: 0;
   position: fixed;
+  width: 100%;
+  padding: 0 0 5px 0; /* Room for elem box shadow */
+  margin: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background: ghostwhite;
   font-family: Arial, sans-serif;
   font-size: 1em;
 }
 
 .dom-selector__list {
   list-style-type: none;
-  padding: 0 .5em;
+  padding: 0;
   margin: 0
 }
 
@@ -28,17 +27,28 @@
   width: 5em;
   height: 2em;
   line-height: 2em;
-  margin: .25em .25em;
+  margin: 0;
   padding: 0 .5em;
-  overflow: hidden;
   white-space: nowrap;
   background-color: #BDC3C7;
   color: white;
   cursor: pointer;
-  border-radius: .25em;
   box-shadow: 0 5px 0 #6C7A89;
   transition: background-color .3s ease-out;
   -webkit-transition: background-color .3s ease-out;
+}
+
+.dom-selector__button:after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: -1em; /* -(border = arrow height = array width) */
+  border: 1em solid transparent; /* font-size + padding-top + padding-bottom */
+  border-right-color: #BDC3C7;
+  border-left-width: 0;
+  z-index: 5;
+  transition: border-color .3s ease-out;
+  -webkit-transition: border-color .3s ease-out;
 }
 
 .dom-selector__button:hover {
@@ -47,11 +57,19 @@
   top: 2px;
 }
 
+.dom-selector__button:hover:after {
+  border-right-color: grey;
+}
+
 .dom-selector__button--selected,
 .dom-selector__button--selected:hover {
   background-color: #F22613;
-  box-shadow: 0 2px 0 #96281B;
-  top: 3px;
+  box-shadow: 0 5px 0 #96281B;
+}
+
+.dom-selector__button--selected:after,
+.dom-selector__button--selected:hover:after {
+  border-right-color: #F22613;
 }
 
 .dom-selector__selected {
