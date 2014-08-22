@@ -68,15 +68,23 @@
 }
 
 .dom-selector__elem--selected,
-.dom-selector__cancel-control,
-.dom-selector__elem--selected:hover {
+.dom-selector__cancel-control {
   background-color: #e74c3c;
   box-shadow: 0 5px 0 #96281B;
 }
 
-.dom-selector__elem--selected:after,
-.dom-selector__elem--selected:hover:after {
+.dom-selector__elem--selected:hover,
+.dom-selector__cancel-control:hover {
+  background-color: #e26a6a;
+  box-shadow: 0 3px 0 #96281B;
+}
+
+.dom-selector__elem--selected:after {
   border-right-color: #e74c3c;
+}
+
+.dom-selector__elem--selected:hover:after {
+  border-right-color: #e26a6a;
 }
 
 .dom-selector__control {
