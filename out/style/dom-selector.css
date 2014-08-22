@@ -80,6 +80,8 @@
 
 .dom-selector__control {
   float: right;
+  width: 2em;
+  text-align: center;
 }
 
 .dom-selector__ok-control {
