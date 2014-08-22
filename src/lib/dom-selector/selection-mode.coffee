@@ -21,7 +21,7 @@ module.exports = class SelectionMode
     if @started then @stop() else @start()
   selectDom: (ev) =>
     ev.stopPropagation()
-    return false if $.hasParent(ev.target, @bar.element)
+    return false if $.hasParent(ev.target, @bar.element) || ev.target == @bar.element
     @bar.newSelection(ev.target)
     @bar.show() unless @bar.visible
     @newSelection(ev.target)

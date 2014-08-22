@@ -280,7 +280,7 @@ module.exports = SelectionMode = (function() {
 
   SelectionMode.prototype.selectDom = function(ev) {
     ev.stopPropagation();
-    if ($.hasParent(ev.target, this.bar.element)) {
+    if ($.hasParent(ev.target, this.bar.element) || ev.target === this.bar.element) {
       return false;
     }
     this.bar.newSelection(ev.target);
