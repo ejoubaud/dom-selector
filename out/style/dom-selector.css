@@ -27,25 +27,30 @@
   display: inline-block;
   width: 5em;
   height: 2em;
+  line-height: 2em;
   margin: .25em .25em;
   padding: 0 .5em;
   overflow: hidden;
   white-space: nowrap;
-  line-height: 2em;
-  background-color: white;
+  background-color: #BDC3C7;
+  color: white;
   cursor: pointer;
   border-radius: .25em;
-  box-shadow: 0 5px 0 #4E5D79;
+  box-shadow: 0 5px 0 #6C7A89;
+  transition: background-color .3s ease-out;
+  -webkit-transition: background-color .3s ease-out;
 }
 
 .dom-selector__button:hover {
-  box-shadow: 0 3px 0 #4E5D79;
+  background-color: grey;
+  box-shadow: 0 3px 0 black;
   top: 2px;
 }
 
 .dom-selector__button--selected,
 .dom-selector__button--selected:hover {
-  box-shadow: 0 2px 0 #4E5D79;
+  background-color: #F22613;
+  box-shadow: 0 2px 0 #96281B;
   top: 3px;
 }
 
