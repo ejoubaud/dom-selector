@@ -76,6 +76,16 @@
   float: right;
 }
 
+.dom-selector__ok-control {
+  background-color: #2ecc71;
+  box-shadow: 0 5px 0 #1E824C;
+}
+
+.dom-selector__cancel-control {
+  background-color: #e74c3c;
+  box-shadow: 0 5px 0 #96281B;
+}
+
 .dom-selector__selected {
   border: 1px solid red;
 }
