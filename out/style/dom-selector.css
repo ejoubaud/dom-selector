@@ -66,6 +66,12 @@
 .dom-selector__elem:hover:after {
   border-right-color: #bdc3c7;
 }
+.dom-selector__elem--selected:after {
+  border-right-color: #e74c3c;
+}
+.dom-selector__elem--selected:hover:after {
+  border-right-color: #e26a6a;
+}
 .dom-selector__elem--selected,
 .dom-selector__cancel-control {
   background-color: #e74c3c;
@@ -77,12 +83,6 @@
   background-color: #e26a6a;
   -webkit-box-shadow: 0 3px 0 #96281b;
   box-shadow: 0 3px 0 #96281b;
-}
-.dom-selector__elem--selected:after {
-  border-right-color: #e74c3c;
-}
-.dom-selector__elem--selected:hover:after {
-  border-right-color: #e26a6a;
 }
 .dom-selector__control {
   float: right;
