@@ -155,9 +155,12 @@
 
 	<script type="text/javascript">
 		var button = document.querySelector('.dom-selector__starter');
+
+		var success = function(el) { alert('You selected a ' + el.nodeName); };
+
 		button.addEventListener('click', function(ev) {
 			ev.stopPropagation();
-			if (domSelector.toggle()) {
+			if (domSelector.toggle(success)) {
 				button.className += ' dom-selector__starter--active';
 			} else {
 				button.className = button.className.replace(' dom-selector__starter--active', '');

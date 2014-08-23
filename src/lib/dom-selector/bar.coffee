@@ -2,9 +2,8 @@ $ = require('./dom-utils.coffee')
 BarItem = require('./bar-item.coffee')
 
 module.exports = class Bar
-  constructor: (@selectionMode, options = {}) ->
+  constructor: (@selectionMode) ->
     @createElement()
-    @barItem = options.barItemConstructor || BarItem
     @visible = false
     @referencedElems = []
     @barElems = []
@@ -28,10 +27,15 @@ module.exports = class Bar
     @element.appendChild(@list)
   enableOkControl: ->
     $.removeClass(@okControl, 'dom-selector__ok-control--disabled')
+    @okControl.addEventListener('click', @ok)
   disableOkControl: ->
     $.addClass(@okControl, 'dom-selector__ok-control--disabled')
+    @okControl.removeEventListener('click', @ok)
   cancel: =>
     @selectionMode.stop()
+  ok: =>
+    @selectionMode.stop()
+    @successCallback?(@selected)
   show: ->
     document.body.appendChild(@element)
     @visible = true
@@ -47,7 +51,7 @@ module.exports = class Bar
   generateListFrom: (el, selected = true) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @generateListFrom(el.parentNode, false)
-    barItem = new @barItem(el, this, selected)
+    barItem = new BarItem(el, this, selected)
     barElem = barItem.elem
     @referencedElems.push(el)
     @barElems.push(barItem)

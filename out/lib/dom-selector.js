@@ -118,14 +118,11 @@ $ = require('./dom-utils.coffee');
 BarItem = require('./bar-item.coffee');
 
 module.exports = Bar = (function() {
-  function Bar(selectionMode, options) {
+  function Bar(selectionMode) {
     this.selectionMode = selectionMode;
-    if (options == null) {
-      options = {};
-    }
+    this.ok = __bind(this.ok, this);
     this.cancel = __bind(this.cancel, this);
     this.createElement();
-    this.barItem = options.barItemConstructor || BarItem;
     this.visible = false;
     this.referencedElems = [];
     this.barElems = [];
@@ -164,15 +161,22 @@ module.exports = Bar = (function() {
   };
 
   Bar.prototype.enableOkControl = function() {
-    return $.removeClass(this.okControl, 'dom-selector__ok-control--disabled');
+    $.removeClass(this.okControl, 'dom-selector__ok-control--disabled');
+    return this.okControl.addEventListener('click', this.ok);
   };
 
   Bar.prototype.disableOkControl = function() {
-    return $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
+    $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
+    return this.okControl.removeEventListener('click', this.ok);
   };
 
   Bar.prototype.cancel = function() {
     return this.selectionMode.stop();
+  };
+
+  Bar.prototype.ok = function() {
+    this.selectionMode.stop();
+    return typeof this.successCallback === "function" ? this.successCallback(this.selected) : void 0;
   };
 
   Bar.prototype.show = function() {
@@ -201,7 +205,7 @@ module.exports = Bar = (function() {
     if (el.parentElement && el.nodeName.toLowerCase() !== 'body') {
       this.generateListFrom(el.parentNode, false);
     }
-    barItem = new this.barItem(el, this, selected);
+    barItem = new BarItem(el, this, selected);
     barElem = barItem.elem;
     this.referencedElems.push(el);
     this.barElems.push(barItem);
@@ -296,9 +300,10 @@ module.exports = SelectionMode = (function() {
     this.started = false;
   }
 
-  SelectionMode.prototype.start = function() {
+  SelectionMode.prototype.start = function(successCallback) {
     document.body.addEventListener('click', this.selectDom);
     this.showSelection();
+    this.bar.successCallback = successCallback;
     if (this.bar.selected) {
       this.bar.show();
     }
@@ -312,11 +317,11 @@ module.exports = SelectionMode = (function() {
     return this.started = false;
   };
 
-  SelectionMode.prototype.toggle = function() {
+  SelectionMode.prototype.toggle = function(successCallback) {
     if (this.started) {
       return this.stop();
     } else {
-      return this.start();
+      return this.start(successCallback);
     }
   };
 

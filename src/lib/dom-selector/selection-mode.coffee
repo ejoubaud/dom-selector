@@ -7,9 +7,10 @@ module.exports = class SelectionMode
     @selectedClass = 'dom-selector__selected'
     @bar = new Bar(this)
     @started = false
-  start: ->
+  start: (successCallback) ->
     document.body.addEventListener('click', @selectDom)
     @showSelection()
+    @bar.successCallback = successCallback
     @bar.show() if @bar.selected
     @started = true
   stop: ->
@@ -17,8 +18,8 @@ module.exports = class SelectionMode
     @hideSelection()
     @bar.hide()
     @started = false
-  toggle: ->
-    if @started then @stop() else @start()
+  toggle: (successCallback) ->
+    if @started then @stop() else @start(successCallback)
   selectDom: (ev) =>
     ev.stopPropagation()
     return false if $.hasParent(ev.target, @bar.element) || ev.target == @bar.element
