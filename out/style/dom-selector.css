@@ -70,13 +70,13 @@
 .dom-selector__elem--selected,
 .dom-selector__cancel-control {
   background-color: #e74c3c;
-  box-shadow: 0 5px 0 #96281B;
+  box-shadow: 0 5px 0 #96281b;
 }
 
 .dom-selector__elem--selected:hover,
 .dom-selector__cancel-control:hover {
   background-color: #e26a6a;
-  box-shadow: 0 3px 0 #96281B;
+  box-shadow: 0 3px 0 #96281b;
 }
 
 .dom-selector__elem--selected:after {
@@ -96,6 +96,10 @@
 .dom-selector__ok-control {
   background-color: #2ecc71;
   box-shadow: 0 5px 0 #1E824C;
+}
+
+.dom-selector__ok-control:hover {
+  background-color: #90C695;
 }
 
 .dom-selector__selected {
