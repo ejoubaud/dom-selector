@@ -21,6 +21,7 @@ module.exports = class Bar
       c.innerHTML = content[name]
       @element.appendChild(c)
     @disableOkControl()
+    @cancelControl.addEventListener('click', @cancel)
   createList: ->
     @list = document.createElement("ul")
     @list.className = "dom-selector__list"
@@ -29,6 +30,8 @@ module.exports = class Bar
     $.removeClass(@okControl, 'dom-selector__ok-control--disabled')
   disableOkControl: ->
     $.addClass(@okControl, 'dom-selector__ok-control--disabled')
+  cancel: =>
+    @selectionMode.stop()
   show: ->
     document.body.appendChild(@element)
     @visible = true

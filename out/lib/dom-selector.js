@@ -110,7 +110,8 @@ module.exports = BarItem = (function() {
 
 
 },{"./dom-utils.coffee":4}],3:[function(require,module,exports){
-var $, Bar, BarItem;
+var $, Bar, BarItem,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 $ = require('./dom-utils.coffee');
 
@@ -122,6 +123,7 @@ module.exports = Bar = (function() {
     if (options == null) {
       options = {};
     }
+    this.cancel = __bind(this.cancel, this);
     this.createElement();
     this.barItem = options.barItemConstructor || BarItem;
     this.visible = false;
@@ -151,7 +153,8 @@ module.exports = Bar = (function() {
         return _this.element.appendChild(c);
       };
     })(this));
-    return this.disableOkControl();
+    this.disableOkControl();
+    return this.cancelControl.addEventListener('click', this.cancel);
   };
 
   Bar.prototype.createList = function() {
@@ -166,6 +169,10 @@ module.exports = Bar = (function() {
 
   Bar.prototype.disableOkControl = function() {
     return $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
+  };
+
+  Bar.prototype.cancel = function() {
+    return this.selectionMode.stop();
   };
 
   Bar.prototype.show = function() {
