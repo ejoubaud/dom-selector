@@ -20,10 +20,15 @@ module.exports = class Bar
       c.className = "dom-selector__button dom-selector__control dom-selector__#{name}-control"
       c.innerHTML = content[name]
       @element.appendChild(c)
+    @disableOkControl()
   createList: ->
     @list = document.createElement("ul")
     @list.className = "dom-selector__list"
     @element.appendChild(@list)
+  enableOkControl: ->
+    $.removeClass(@okControl, 'dom-selector__ok-control--disabled')
+  disableOkControl: ->
+    $.addClass(@okControl, 'dom-selector__ok-control--disabled')
   show: ->
     document.body.appendChild(@element)
     @visible = true
@@ -50,8 +55,10 @@ module.exports = class Bar
     @newSelection(bodyEl)
   newSelection: (newEl) ->
     @selectedBarElem.unselect() if @selectedBarElem
+    @enableOkControl() unless @selected
     if @selected == newEl
       @selected = @selectedBarElem = null
+      @disableOkControl()
     else if (idx = $.inArray(newEl, @referencedElems)) >= 0
       @selectedBarElem = @barElems[idx]
       @selectedBarElem.select()

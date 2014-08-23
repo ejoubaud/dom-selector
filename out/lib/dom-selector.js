@@ -142,7 +142,7 @@ module.exports = Bar = (function() {
       ok: "&#10003;",
       cancel: "&#10007;"
     };
-    return $.each(['cancel', 'ok'], (function(_this) {
+    $.each(['cancel', 'ok'], (function(_this) {
       return function(i, name) {
         var c;
         c = _this["" + name + "Control"] = document.createElement("a");
@@ -151,12 +151,21 @@ module.exports = Bar = (function() {
         return _this.element.appendChild(c);
       };
     })(this));
+    return this.disableOkControl();
   };
 
   Bar.prototype.createList = function() {
     this.list = document.createElement("ul");
     this.list.className = "dom-selector__list";
     return this.element.appendChild(this.list);
+  };
+
+  Bar.prototype.enableOkControl = function() {
+    return $.removeClass(this.okControl, 'dom-selector__ok-control--disabled');
+  };
+
+  Bar.prototype.disableOkControl = function() {
+    return $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
   };
 
   Bar.prototype.show = function() {
@@ -203,8 +212,12 @@ module.exports = Bar = (function() {
     if (this.selectedBarElem) {
       this.selectedBarElem.unselect();
     }
+    if (!this.selected) {
+      this.enableOkControl();
+    }
     if (this.selected === newEl) {
-      return this.selected = this.selectedBarElem = null;
+      this.selected = this.selectedBarElem = null;
+      return this.disableOkControl();
     } else if ((idx = $.inArray(newEl, this.referencedElems)) >= 0) {
       this.selectedBarElem = this.barElems[idx];
       this.selectedBarElem.select();
