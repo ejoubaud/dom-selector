@@ -41,6 +41,17 @@ module.exports = (grunt)->
         src: ['**/*.coffee']
         dest: 'out/test/'
         ext: '.js'
+    stylus:
+      style:
+        files: [
+          expand: true
+          cwd: 'src/style/'
+          src: ['*.styl']
+          dest: 'out/style/'
+          ext: '.css'
+        ]
+        options:
+          compress: false
     simplemocha:
       all:
         src: [
@@ -62,6 +73,9 @@ module.exports = (grunt)->
       lib:
         files: ['src/lib/**/*.coffee']
         tasks: ['coffeelint:lib', 'browserify:lib', 'simplemocha']
+      style:
+        files: ['src/style/**/*.styl']
+        tasks: ['stylus:style']
       test:
         files: ['src/test/**/*.coffee']
         tasks: ['coffeelint:test', 'coffee:test', 'simplemocha']
@@ -70,6 +84,7 @@ module.exports = (grunt)->
   # tasks.
   grunt.registerTask 'compile', [
     'coffeelint'
+    'stylus'
     'browserify'
   ]
 
