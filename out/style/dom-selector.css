@@ -2,7 +2,6 @@
   position: fixed;
   width: 100%;
   padding: 0 0 5px 0;
-/* Room for elem box shadow */
   margin: 0;
   bottom: 0;
   left: 0;
@@ -45,9 +44,7 @@
   position: absolute;
   top: 0;
   left: -1em;
-/* -(border = arrow height = array width) */
   border: 1em solid transparent;
-/* font-size + padding-top + padding-bottom */
   border-right-color: #808080;
   border-left-width: 0;
   z-index: 5;

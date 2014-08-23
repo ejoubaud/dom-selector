@@ -1,119 +1,100 @@
-.dom-selector__bar {
-  position: fixed;
-  width: 100%;
-  padding: 0 0 5px 0; /* Room for elem box shadow */
-  margin: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: ghostwhite;
-  font-family: Arial, sans-serif;
-  font-size: 1em;
-}
-
-.dom-selector__list {
-  list-style-type: none;
-  padding: 0;
+.dom-selector__bar
+  position: fixed
+  width: 100%
+  padding: 0 0 5px 0 /* Room for elem box shadow */
   margin: 0
-}
+  bottom: 0
+  left: 0
+  right: 0
+  background: ghostwhite
+  font-family: Arial, sans-serif
+  font-size: 1em
 
-.dom-selector__list li {
-  display: inline;
-}
+.dom-selector__list
+  list-style-type: none
+  padding: 0
+  margin: 0
 
-.dom-selector__button {
-  position: relative;
-  display: inline-block;
-  height: 2em;
-  line-height: 2em;
-  margin: 0;
-  padding: 0 .5em;
-  white-space: nowrap;
-  color: white;
-  cursor: pointer;
-  transition: background-color .3s ease-out;
-  -webkit-transition: background-color .3s ease-out;
-}
+.dom-selector__list li
+  display: inline
 
-.dom-selector__button:hover {
-  top: 2px;
-}
+.dom-selector__button
+  position: relative
+  display: inline-block
+  height: 2em
+  line-height: 2em
+  margin: 0
+  padding: 0 .5em
+  white-space: nowrap
+  color: white
+  cursor: pointer
+  transition: background-color .3s ease-out
+  -webkit-transition: background-color .3s ease-out
 
-.dom-selector__elem {
-  width: 5em;
-  background-color: grey;
-  box-shadow: 0 5px 0 black;
-}
+.dom-selector__button:hover
+  top: 2px
 
-.dom-selector__elem:after {
-  content: ' ';
-  position: absolute;
-  top: 0;
-  left: -1em; /* -(border = arrow height = array width) */
-  border: 1em solid transparent; /* font-size + padding-top + padding-bottom */
-  border-right-color: grey;
-  border-left-width: 0;
-  z-index: 5;
-  transition: border-color .3s ease-out;
-  -webkit-transition: border-color .3s ease-out;
-}
+.dom-selector__elem
+  width: 5em
+  background-color: grey
+  box-shadow: 0 5px 0 black
 
-.dom-selector__elem:hover {
-  background-color: #BDC3C7;
-  box-shadow: 0 3px 0 #6C7A89;
-}
+.dom-selector__elem:after
+  content: ' '
+  position: absolute
+  top: 0
+  left: -1em /* -(border = arrow height = array width) */
+  border: 1em solid transparent /* font-size + padding-top + padding-bottom */
+  border-right-color: grey
+  border-left-width: 0
+  z-index: 5
+  transition: border-color .3s ease-out
+  -webkit-transition: border-color .3s ease-out
 
-.dom-selector__elem:hover:after {
-  border-right-color: #BDC3C7;
-}
+.dom-selector__elem:hover
+  background-color: #BDC3C7
+  box-shadow: 0 3px 0 #6C7A89
+
+.dom-selector__elem:hover:after
+  border-right-color: #BDC3C7
 
 .dom-selector__elem--selected,
-.dom-selector__cancel-control {
-  background-color: #e74c3c;
-  box-shadow: 0 5px 0 #96281b;
-}
+.dom-selector__cancel-control
+  background-color: #e74c3c
+  box-shadow: 0 5px 0 #96281b
 
 .dom-selector__elem--selected:hover,
-.dom-selector__cancel-control:hover {
-  background-color: #e26a6a;
-  box-shadow: 0 3px 0 #96281b;
-}
+.dom-selector__cancel-control:hover
+  background-color: #e26a6a
+  box-shadow: 0 3px 0 #96281b
 
-.dom-selector__elem--selected:after {
-  border-right-color: #e74c3c;
-}
+.dom-selector__elem--selected:after
+  border-right-color: #e74c3c
 
-.dom-selector__elem--selected:hover:after {
-  border-right-color: #e26a6a;
-}
+.dom-selector__elem--selected:hover:after
+  border-right-color: #e26a6a
 
-.dom-selector__control {
-  float: right;
-  width: 2em;
-  text-align: center;
-}
+.dom-selector__control
+  float: right
+  width: 2em
+  text-align: center
 
-.dom-selector__ok-control {
-  background-color: #2ecc71;
-  box-shadow: 0 5px 0 #1E824C;
-}
+.dom-selector__ok-control
+  background-color: #2ecc71
+  box-shadow: 0 5px 0 #1E824C
 
-.dom-selector__ok-control:hover {
-  background-color: #90C695;
-}
+.dom-selector__ok-control:hover
+  background-color: #90C695
 
 .dom-selector__ok-control--disabled,
-.dom-selector__ok-control--disabled:hover {
-  top: 0;
-  background-color: #c8f7c5;
-  box-shadow: 0 5px 0 #87d37c;
-  cursor: not-allowed;
-}
+.dom-selector__ok-control--disabled:hover
+  top: 0
+  background-color: #c8f7c5
+  box-shadow: 0 5px 0 #87d37c
+  cursor: not-allowed
 
-.dom-selector__selected {
-  border: 1px solid red;
-}
+.dom-selector__selected
+  border: 1px solid red
 
-.dom-selector__highlighted {
-  border: 1px solid blue;
-}
+.dom-selector__highlighted
+  border: 1px solid blue
