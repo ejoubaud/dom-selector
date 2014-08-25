@@ -43,6 +43,11 @@
   -webkit-box-shadow: 0 5px 0 #000;
   box-shadow: 0 5px 0 #000;
 }
+.dom-selector__elem:hover {
+  background-color: #bdc3c7;
+  -webkit-box-shadow: 0 3px 0 #6c7a89;
+  box-shadow: 0 3px 0 #6c7a89;
+}
 .dom-selector__elem:after {
   content: ' ';
   position: absolute;
@@ -57,11 +62,6 @@
   -o-transition: border-color 0.3s ease-out;
   -ms-transition: border-color 0.3s ease-out;
   transition: border-color 0.3s ease-out;
-}
-.dom-selector__elem:hover {
-  background-color: #bdc3c7;
-  -webkit-box-shadow: 0 3px 0 #6c7a89;
-  box-shadow: 0 3px 0 #6c7a89;
 }
 .dom-selector__elem:hover:after {
   border-right-color: #bdc3c7;
@@ -96,6 +96,8 @@
 }
 .dom-selector__ok-control:hover {
   background-color: #90c695;
+  -webkit-box-shadow: 0 3px 0 #1e824c;
+  box-shadow: 0 3px 0 #1e824c;
 }
 .dom-selector__ok-control--disabled,
 .dom-selector__ok-control--disabled:hover {
