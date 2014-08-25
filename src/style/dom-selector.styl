@@ -2,6 +2,7 @@
 
 $shadow-size = 5px
 $hover-offset = 2px
+$arrow-side = 1em
 
 shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow-color)
   background-color: $color
@@ -11,7 +12,14 @@ shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow
     background-color: $hover-color
     box-shadow: 0 ($shadow-size - $hover-offset) 0 $hover-shadow-color // TODO: This may be rarely needed and optional
 
+arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow-color)
+  shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color)
 
+  &:after
+    border-right-color: $color
+
+  &:hover:after
+    border-right-color: $hover-color
 
 
 .dom-selector
@@ -25,7 +33,7 @@ shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow
     right: 0
     background: ghostwhite
     font-family: Arial, sans-serif
-    font-size: 1em
+    font-size: $arrow-side
 
   &__list
     list-style-type: none
@@ -52,29 +60,24 @@ shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow
 
   &__elem
     width: 5em
-    shadow-button(grey, black, #bdc3c7, #6c7a89)
+    arrow-shadow-button(grey, black, #bdc3c7, #6c7a89)
 
     &:after
       content: ' '
       position: absolute
       top: 0
-      left: -1em /* -(border = arrow height = array width) */
-      border: 1em solid transparent /* font-size + padding-top + padding-bottom */
-      border-right-color: grey
+      left: -($arrow-side)
+      border-width: $arrow-side
+      border-style: solid
+      border-bottom-color: transparent
+      border-top-color: transparent
       border-left-width: 0
       z-index: 5
       transition: border-color .3s ease-out
 
-    &:hover:after
-      border-right-color: #BDC3C7
+    &--selected
+      arrow-shadow-button(#e74c3c, #96281b, #e26a6a)
 
-    &--selected:after
-      border-right-color: #e74c3c
-
-    &--selected:hover:after
-      border-right-color: #e26a6a
-
-  &__elem--selected,
   &__cancel-control
     shadow-button(#e74c3c, #96281b, #e26a6a)
 

@@ -49,12 +49,20 @@
   box-shadow: 0 3px 0 #6c7a89;
 }
 .dom-selector__elem:after {
+  border-right-color: #808080;
+}
+.dom-selector__elem:hover:after {
+  border-right-color: #bdc3c7;
+}
+.dom-selector__elem:after {
   content: ' ';
   position: absolute;
   top: 0;
   left: -1em;
-  border: 1em solid transparent;
-  border-right-color: #808080;
+  border-width: 1em;
+  border-style: solid;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
   border-left-width: 0;
   z-index: 5;
   -webkit-transition: border-color 0.3s ease-out;
@@ -63,8 +71,15 @@
   -ms-transition: border-color 0.3s ease-out;
   transition: border-color 0.3s ease-out;
 }
-.dom-selector__elem:hover:after {
-  border-right-color: #bdc3c7;
+.dom-selector__elem--selected {
+  background-color: #e74c3c;
+  -webkit-box-shadow: 0 5px 0 #96281b;
+  box-shadow: 0 5px 0 #96281b;
+}
+.dom-selector__elem--selected:hover {
+  background-color: #e26a6a;
+  -webkit-box-shadow: 0 3px 0 #96281b;
+  box-shadow: 0 3px 0 #96281b;
 }
 .dom-selector__elem--selected:after {
   border-right-color: #e74c3c;
@@ -72,13 +87,11 @@
 .dom-selector__elem--selected:hover:after {
   border-right-color: #e26a6a;
 }
-.dom-selector__elem--selected,
 .dom-selector__cancel-control {
   background-color: #e74c3c;
   -webkit-box-shadow: 0 5px 0 #96281b;
   box-shadow: 0 5px 0 #96281b;
 }
-.dom-selector__elem--selected:hover,
 .dom-selector__cancel-control:hover {
   background-color: #e26a6a;
   -webkit-box-shadow: 0 3px 0 #96281b;
