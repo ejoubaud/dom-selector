@@ -1,4 +1,6 @@
 module.exports =
+  # TODO: Add attachEvent / addEventListener shim for IE8
+
   removeClass: (el, clazz) ->
     regex = new RegExp("(^| )" + clazz + '($| )', 'g')
     el.className = el.className.replace(regex, '')
