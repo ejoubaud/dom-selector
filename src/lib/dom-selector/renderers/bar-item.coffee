@@ -2,17 +2,7 @@ $ = require('../dom-utils')
 
 module.exports = class BarItemRenderer
   constructor: (@modelEl, selected = false) ->
-    @createItem(selected)
-
-  createItem: (selected) ->
-    @elem = document.createElement("li")
-    @link = document.createElement("a")
-    @link.className = "dom-selector__button dom-selector__elem"
-    @link.appendChild(@_createSpanWithClass(@_name(), "dom-selector__name"))
-    @link.appendChild(@_createSpanWithClass(@_id(), "dom-selector__id")) if @_hasId()
-    @link.appendChild(@_createSpanWithClass(@_classList(), "dom-selector__classes")) if @_hasClasses()
-    @elem.appendChild(@link)
-    @select() if selected
+    @_createItem(selected)
 
   addClickListener: (listener) ->
     @link.addEventListener('click', listener)
@@ -22,6 +12,16 @@ module.exports = class BarItemRenderer
 
   unselect: ->
     $.removeClass(@link, 'dom-selector__elem--selected')
+
+  _createItem: (selected) ->
+    @elem = document.createElement("li")
+    @link = document.createElement("a")
+    @link.className = "dom-selector__button dom-selector__elem"
+    @link.appendChild(@_createSpanWithClass(@_name(), "dom-selector__name"))
+    @link.appendChild(@_createSpanWithClass(@_id(), "dom-selector__id")) if @_hasId()
+    @link.appendChild(@_createSpanWithClass(@_classList(), "dom-selector__classes")) if @_hasClasses()
+    @elem.appendChild(@link)
+    @select() if selected
 
   _createSpanWithClass: (content, className) ->
     nodeNameEl = document.createElement("span")
