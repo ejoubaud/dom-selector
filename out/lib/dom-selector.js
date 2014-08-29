@@ -23,7 +23,7 @@ if (typeof window === 'undefined') {
 
 
 
-},{"./dom-selector/selection-mode":6}],2:[function(require,module,exports){
+},{"./dom-selector/selection-mode":7}],2:[function(require,module,exports){
 var BarItem, BarItemRenderer,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -62,107 +62,40 @@ module.exports = BarItem = (function() {
 
 
 },{"./renderers/bar-item":5}],3:[function(require,module,exports){
-var $, Bar, BarItem,
+var $, Bar, BarItem, BarRenderer,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 $ = require('./dom-utils');
 
 BarItem = require('./bar-item');
 
+BarRenderer = require('./renderers/bar');
+
 module.exports = Bar = (function() {
   function Bar(selectionMode) {
     this.selectionMode = selectionMode;
     this.ok = __bind(this.ok, this);
     this.cancel = __bind(this.cancel, this);
-    this.createElement();
+    this.renderer = new BarRenderer(this.ok, this.cancel);
     this.visible = false;
-    this.referencedElems = [];
-    this.barElems = [];
+    this._resetArrays();
   }
 
-  Bar.prototype.createElement = function() {
-    this.element = document.createElement("div");
-    this.element.className = "dom-selector__bar";
-    this.createControls();
-    return this.createList();
-  };
-
-  Bar.prototype.createControls = function() {
-    var content;
-    content = {
-      ok: "&#10003;",
-      cancel: "&#10007;"
-    };
-    $.each(['cancel', 'ok'], (function(_this) {
-      return function(i, name) {
-        var c;
-        c = _this["" + name + "Control"] = document.createElement("a");
-        c.className = "dom-selector__button dom-selector__control dom-selector__" + name + "-control";
-        c.innerHTML = content[name];
-        return _this.element.appendChild(c);
-      };
-    })(this));
-    this.disableOkControl();
-    return this.cancelControl.addEventListener('click', this.cancel);
-  };
-
-  Bar.prototype.createList = function() {
-    this.list = document.createElement("ul");
-    this.list.className = "dom-selector__list";
-    return this.element.appendChild(this.list);
-  };
-
-  Bar.prototype.enableOkControl = function() {
-    $.removeClass(this.okControl, 'dom-selector__ok-control--disabled');
-    return this.okControl.addEventListener('click', this.ok);
-  };
-
-  Bar.prototype.disableOkControl = function() {
-    $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
-    return this.okControl.removeEventListener('click', this.ok);
-  };
-
-  Bar.prototype.cancel = function() {
-    return this.selectionMode.stop();
-  };
-
-  Bar.prototype.ok = function() {
-    this.selectionMode.stop();
-    return typeof this.successCallback === "function" ? this.successCallback(this.selected) : void 0;
-  };
-
   Bar.prototype.show = function() {
-    document.body.appendChild(this.element);
+    this.renderer.show();
     return this.visible = true;
   };
 
   Bar.prototype.hide = function() {
-    document.body.removeChild(this.element);
+    this.renderer.hide();
     return this.visible = false;
   };
 
-  Bar.prototype.reset = function(newEl) {
-    this.referencedElems = [];
-    this.barElems = [];
-    this.tip = this.selected = newEl;
-    this.list.innerHTML = '';
-    return this.generateListFrom(newEl);
-  };
-
-  Bar.prototype.generateListFrom = function(el, selected) {
-    var barElem, barItem;
-    if (selected == null) {
-      selected = true;
-    }
-    if (el.parentElement && el.nodeName.toLowerCase() !== 'body') {
-      this.generateListFrom(el.parentNode, false);
-    }
-    barItem = new BarItem(el, this, selected);
-    barElem = barItem.elem;
-    this.referencedElems.push(el);
-    this.barElems.push(barItem);
-    this.selectedBarElem = barItem;
-    return this.list.appendChild(barElem);
+  Bar.prototype.reset = function(newTipEl) {
+    this.tip = this.selected = newTipEl;
+    this._resetArrays();
+    this._generateList(newTipEl);
+    return this.renderer.reset(this.barElems);
   };
 
   Bar.prototype.newSelectionFromBar = function(bodyEl) {
@@ -176,11 +109,11 @@ module.exports = Bar = (function() {
       this.selectedBarElem.unselect();
     }
     if (!this.selected) {
-      this.enableOkControl();
+      this.renderer.enableOkControl();
     }
     if (this.selected === newEl) {
       this.selected = this.selectedBarElem = null;
-      return this.disableOkControl();
+      return this.renderer.disableOkControl();
     } else if ((idx = $.inArray(newEl, this.referencedElems)) >= 0) {
       this.selectedBarElem = this.barElems[idx];
       this.selectedBarElem.select();
@@ -190,13 +123,42 @@ module.exports = Bar = (function() {
     }
   };
 
+  Bar.prototype.cancel = function() {
+    return this.selectionMode.stop();
+  };
+
+  Bar.prototype.ok = function() {
+    this.selectionMode.stop();
+    return typeof this.successCallback === "function" ? this.successCallback(this.selected) : void 0;
+  };
+
+  Bar.prototype.holdsElement = function(el) {
+    return this.renderer.holdsElement(el);
+  };
+
+  Bar.prototype._generateList = function(el) {
+    var barItem;
+    if (el.parentElement && el.nodeName.toLowerCase() !== 'body') {
+      this._generateList(el.parentNode);
+    }
+    barItem = new BarItem(el, this, this.selected === el);
+    this.referencedElems.push(el);
+    this.barElems.push(barItem);
+    return this.selectedBarElem = barItem;
+  };
+
+  Bar.prototype._resetArrays = function() {
+    this.referencedElems = [];
+    return this.barElems = [];
+  };
+
   return Bar;
 
 })();
 
 
 
-},{"./bar-item":2,"./dom-utils":4}],4:[function(require,module,exports){
+},{"./bar-item":2,"./dom-utils":4,"./renderers/bar":6}],4:[function(require,module,exports){
 module.exports = {
   removeClass: function(el, clazz) {
     var regex;
@@ -246,10 +208,22 @@ module.exports = BarItemRenderer = (function() {
     if (selected == null) {
       selected = false;
     }
-    this.createItem(selected);
+    this._createItem(selected);
   }
 
-  BarItemRenderer.prototype.createItem = function(selected) {
+  BarItemRenderer.prototype.addClickListener = function(listener) {
+    return this.link.addEventListener('click', listener);
+  };
+
+  BarItemRenderer.prototype.select = function() {
+    return $.addClass(this.link, 'dom-selector__elem--selected');
+  };
+
+  BarItemRenderer.prototype.unselect = function() {
+    return $.removeClass(this.link, 'dom-selector__elem--selected');
+  };
+
+  BarItemRenderer.prototype._createItem = function(selected) {
     this.elem = document.createElement("li");
     this.link = document.createElement("a");
     this.link.className = "dom-selector__button dom-selector__elem";
@@ -264,18 +238,6 @@ module.exports = BarItemRenderer = (function() {
     if (selected) {
       return this.select();
     }
-  };
-
-  BarItemRenderer.prototype.addClickListener = function(listener) {
-    return this.link.addEventListener('click', listener);
-  };
-
-  BarItemRenderer.prototype.select = function() {
-    return $.addClass(this.link, 'dom-selector__elem--selected');
-  };
-
-  BarItemRenderer.prototype.unselect = function() {
-    return $.removeClass(this.link, 'dom-selector__elem--selected');
   };
 
   BarItemRenderer.prototype._createSpanWithClass = function(content, className) {
@@ -313,6 +275,92 @@ module.exports = BarItemRenderer = (function() {
 
 
 },{"../dom-utils":4}],6:[function(require,module,exports){
+var $, BarRenderer;
+
+$ = require('../dom-utils');
+
+module.exports = BarRenderer = (function() {
+  function BarRenderer(successCb, cancelCb) {
+    this.successCb = successCb;
+    this.cancelCb = cancelCb;
+    this._createElement();
+    this._createControls();
+    this._createList();
+  }
+
+  BarRenderer.prototype.reset = function(items) {
+    this.items = items != null ? items : [];
+    this.list.innerHTML = '';
+    return $.each(this.items, (function(_this) {
+      return function(i, item) {
+        return _this.list.appendChild(item.elem);
+      };
+    })(this));
+  };
+
+  BarRenderer.prototype.show = function() {
+    return document.body.appendChild(this.element);
+  };
+
+  BarRenderer.prototype.hide = function() {
+    return document.body.removeChild(this.element);
+  };
+
+  BarRenderer.prototype.enableOkControl = function() {
+    $.removeClass(this.okControl, 'dom-selector__ok-control--disabled');
+    if (this.successCb) {
+      return this.okControl.addEventListener('click', this.successCb);
+    }
+  };
+
+  BarRenderer.prototype.disableOkControl = function() {
+    $.addClass(this.okControl, 'dom-selector__ok-control--disabled');
+    if (this.successCb) {
+      return this.okControl.removeEventListener('click', this.successCb);
+    }
+  };
+
+  BarRenderer.prototype.holdsElement = function(el) {
+    return el === this.element || $.hasParent(el, this.element);
+  };
+
+  BarRenderer.prototype._createElement = function() {
+    this.element = document.createElement("div");
+    return this.element.className = "dom-selector__bar";
+  };
+
+  BarRenderer.prototype._createList = function() {
+    this.list = document.createElement("ul");
+    this.list.className = "dom-selector__list";
+    return this.element.appendChild(this.list);
+  };
+
+  BarRenderer.prototype._createControls = function() {
+    var content;
+    content = {
+      ok: "&#10003;",
+      cancel: "&#10007;"
+    };
+    $.each(['cancel', 'ok'], (function(_this) {
+      return function(i, name) {
+        var c;
+        c = _this["" + name + "Control"] = document.createElement("a");
+        c.className = "dom-selector__button dom-selector__control dom-selector__" + name + "-control";
+        c.innerHTML = content[name];
+        return _this.element.appendChild(c);
+      };
+    })(this));
+    this.disableOkControl();
+    return this.cancelControl.addEventListener('click', this.cancelCb);
+  };
+
+  return BarRenderer;
+
+})();
+
+
+
+},{"../dom-utils":4}],7:[function(require,module,exports){
 var $, Bar, SelectionMode,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -356,7 +404,7 @@ module.exports = SelectionMode = (function() {
 
   SelectionMode.prototype.selectDom = function(ev) {
     ev.stopPropagation();
-    if ($.hasParent(ev.target, this.bar.element) || ev.target === this.bar.element) {
+    if (this.bar.holdsElement(ev.target)) {
       return false;
     }
     this.bar.newSelection(ev.target);
