@@ -1,4 +1,4 @@
-$ = require('./dom-utils.coffee')
+$ = require('./dom-utils')
 
 module.exports = class BarItem
   constructor: (@modelEl, @bar, @selected = false) ->

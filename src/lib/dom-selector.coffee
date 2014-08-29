@@ -10,7 +10,7 @@ Licensed under the MIT license.
 
 'use strict'
 
-SelectionMode = require('./dom-selector/selection-mode.coffee')
+SelectionMode = require('./dom-selector/selection-mode')
 
 domSelector = new SelectionMode()
 if typeof window == 'undefined'

@@ -1,5 +1,5 @@
-$ = require('./dom-utils.coffee')
-Bar = require('./bar.coffee')
+$ = require('./dom-utils')
+Bar = require('./bar')
 
 module.exports = class SelectionMode
   constructor: ->

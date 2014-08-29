@@ -11,7 +11,7 @@ Licensed under the MIT license.
 'use strict';
 var SelectionMode, domSelector, exports;
 
-SelectionMode = require('./dom-selector/selection-mode.coffee');
+SelectionMode = require('./dom-selector/selection-mode');
 
 domSelector = new SelectionMode();
 
@@ -23,11 +23,11 @@ if (typeof window === 'undefined') {
 
 
 
-},{"./dom-selector/selection-mode.coffee":5}],2:[function(require,module,exports){
+},{"./dom-selector/selection-mode":5}],2:[function(require,module,exports){
 var $, BarItem,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-$ = require('./dom-utils.coffee');
+$ = require('./dom-utils');
 
 module.exports = BarItem = (function() {
   function BarItem(modelEl, bar, selected) {
@@ -109,13 +109,13 @@ module.exports = BarItem = (function() {
 
 
 
-},{"./dom-utils.coffee":4}],3:[function(require,module,exports){
+},{"./dom-utils":4}],3:[function(require,module,exports){
 var $, Bar, BarItem,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-$ = require('./dom-utils.coffee');
+$ = require('./dom-utils');
 
-BarItem = require('./bar-item.coffee');
+BarItem = require('./bar-item');
 
 module.exports = Bar = (function() {
   function Bar(selectionMode) {
@@ -244,7 +244,7 @@ module.exports = Bar = (function() {
 
 
 
-},{"./bar-item.coffee":2,"./dom-utils.coffee":4}],4:[function(require,module,exports){
+},{"./bar-item":2,"./dom-utils":4}],4:[function(require,module,exports){
 module.exports = {
   removeClass: function(el, clazz) {
     var regex;
@@ -287,9 +287,9 @@ if (this.$ && this.$.each && this.$.inArray) {
 var $, Bar, SelectionMode,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-$ = require('./dom-utils.coffee');
+$ = require('./dom-utils');
 
-Bar = require('./bar.coffee');
+Bar = require('./bar');
 
 module.exports = SelectionMode = (function() {
   function SelectionMode() {
@@ -365,4 +365,4 @@ module.exports = SelectionMode = (function() {
 
 
 
-},{"./bar.coffee":3,"./dom-utils.coffee":4}]},{},[1]);
+},{"./bar":3,"./dom-utils":4}]},{},[1]);
