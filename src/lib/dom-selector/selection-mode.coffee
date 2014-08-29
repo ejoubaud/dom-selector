@@ -7,25 +7,30 @@ module.exports = class SelectionMode
     @selectedClass = 'dom-selector__selected'
     @bar = new Bar(this)
     @started = false
+
   start: (successCallback) ->
     document.body.addEventListener('click', @selectDom)
     @showSelection()
     @bar.successCallback = successCallback
     @bar.show() if @bar.selected
     @started = true
+
   stop: ->
     document.body.removeEventListener('click', @selectDom)
     @hideSelection()
     @bar.hide()
     @started = false
+
   toggle: (successCallback) ->
     if @started then @stop() else @start(successCallback)
+
   selectDom: (ev) =>
     ev.stopPropagation()
     return false if @bar.holdsElement(ev.target)
     @bar.newSelection(ev.target)
     @bar.show() unless @bar.visible
     @newSelection(ev.target)
+
   newSelection: (newEl) ->
     @hideSelection()
     if @selected == newEl
@@ -33,7 +38,9 @@ module.exports = class SelectionMode
     else
       @selected = newEl
       @showSelection()
+
   hideSelection: ->
     $.removeClass(@selected, @selectedClass) if @selected
+
   showSelection: ->
     $.addClass(@selected, @selectedClass) if @selected
