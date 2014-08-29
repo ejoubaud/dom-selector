@@ -23,11 +23,11 @@ if (typeof window === 'undefined') {
 
 
 
-},{"./dom-selector/selection-mode":5}],2:[function(require,module,exports){
-var $, BarItem,
+},{"./dom-selector/selection-mode":6}],2:[function(require,module,exports){
+var BarItem, BarItemRenderer,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-$ = require('./dom-utils');
+BarItemRenderer = require('./renderers/bar-item');
 
 module.exports = BarItem = (function() {
   function BarItem(modelEl, bar, selected) {
@@ -35,54 +35,10 @@ module.exports = BarItem = (function() {
     this.bar = bar;
     this.selected = selected != null ? selected : false;
     this.newSelectionFromBar = __bind(this.newSelectionFromBar, this);
-    this.createItem();
+    this.renderer = new BarItemRenderer(modelEl, selected);
+    this.renderer.addClickListener(this.newSelectionFromBar);
+    this.elem = this.renderer.elem;
   }
-
-  BarItem.prototype.createSpanWithClass = function(content, className) {
-    var nodeNameEl;
-    nodeNameEl = document.createElement("span");
-    nodeNameEl.className = className;
-    nodeNameEl.innerHTML = content;
-    return nodeNameEl;
-  };
-
-  BarItem.prototype.hasId = function() {
-    return this.modelEl.id !== '';
-  };
-
-  BarItem.prototype.id = function() {
-    return "#" + this.modelEl.id;
-  };
-
-  BarItem.prototype.hasClasses = function() {
-    return this.modelEl.className.trim() !== '';
-  };
-
-  BarItem.prototype.classList = function() {
-    return this.modelEl.className.replace(/(^| )+/g, '.');
-  };
-
-  BarItem.prototype.name = function() {
-    return this.modelEl.nodeName.toLowerCase();
-  };
-
-  BarItem.prototype.createItem = function() {
-    this.elem = document.createElement("li");
-    this.link = document.createElement("a");
-    this.link.className = "dom-selector__button dom-selector__elem";
-    this.link.appendChild(this.createSpanWithClass(this.name(), "dom-selector__name"));
-    if (this.hasId()) {
-      this.link.appendChild(this.createSpanWithClass(this.id(), "dom-selector__id"));
-    }
-    if (this.hasClasses()) {
-      this.link.appendChild(this.createSpanWithClass(this.classList(), "dom-selector__classes"));
-    }
-    this.link.addEventListener('click', this.newSelectionFromBar);
-    this.elem.appendChild(this.link);
-    if (this.selected) {
-      return this.showSelected();
-    }
-  };
 
   BarItem.prototype.newSelectionFromBar = function(ev) {
     ev.stopPropagation();
@@ -91,16 +47,12 @@ module.exports = BarItem = (function() {
 
   BarItem.prototype.select = function() {
     this.selected = true;
-    return this.showSelected();
+    return this.renderer.select();
   };
 
   BarItem.prototype.unselect = function() {
     this.selected = false;
-    return $.removeClass(this.link, 'dom-selector__elem--selected');
-  };
-
-  BarItem.prototype.showSelected = function() {
-    return $.addClass(this.link, 'dom-selector__elem--selected');
+    return this.renderer.unselect();
   };
 
   return BarItem;
@@ -109,7 +61,7 @@ module.exports = BarItem = (function() {
 
 
 
-},{"./dom-utils":4}],3:[function(require,module,exports){
+},{"./renderers/bar-item":5}],3:[function(require,module,exports){
 var $, Bar, BarItem,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -284,6 +236,83 @@ if (this.$ && this.$.each && this.$.inArray) {
 
 
 },{}],5:[function(require,module,exports){
+var $, BarItemRenderer;
+
+$ = require('../dom-utils');
+
+module.exports = BarItemRenderer = (function() {
+  function BarItemRenderer(modelEl, selected) {
+    this.modelEl = modelEl;
+    if (selected == null) {
+      selected = false;
+    }
+    this.createItem(selected);
+  }
+
+  BarItemRenderer.prototype.createItem = function(selected) {
+    this.elem = document.createElement("li");
+    this.link = document.createElement("a");
+    this.link.className = "dom-selector__button dom-selector__elem";
+    this.link.appendChild(this._createSpanWithClass(this._name(), "dom-selector__name"));
+    if (this._hasId()) {
+      this.link.appendChild(this._createSpanWithClass(this._id(), "dom-selector__id"));
+    }
+    if (this._hasClasses()) {
+      this.link.appendChild(this._createSpanWithClass(this._classList(), "dom-selector__classes"));
+    }
+    this.elem.appendChild(this.link);
+    if (selected) {
+      return this.select();
+    }
+  };
+
+  BarItemRenderer.prototype.addClickListener = function(listener) {
+    return this.link.addEventListener('click', listener);
+  };
+
+  BarItemRenderer.prototype.select = function() {
+    return $.addClass(this.link, 'dom-selector__elem--selected');
+  };
+
+  BarItemRenderer.prototype.unselect = function() {
+    return $.removeClass(this.link, 'dom-selector__elem--selected');
+  };
+
+  BarItemRenderer.prototype._createSpanWithClass = function(content, className) {
+    var nodeNameEl;
+    nodeNameEl = document.createElement("span");
+    nodeNameEl.className = className;
+    nodeNameEl.innerHTML = content;
+    return nodeNameEl;
+  };
+
+  BarItemRenderer.prototype._hasId = function() {
+    return this.modelEl.id !== '';
+  };
+
+  BarItemRenderer.prototype._id = function() {
+    return "#" + this.modelEl.id;
+  };
+
+  BarItemRenderer.prototype._hasClasses = function() {
+    return this.modelEl.className.trim() !== '';
+  };
+
+  BarItemRenderer.prototype._classList = function() {
+    return this.modelEl.className.replace(/(^| )+/g, '.');
+  };
+
+  BarItemRenderer.prototype._name = function() {
+    return this.modelEl.nodeName.toLowerCase();
+  };
+
+  return BarItemRenderer;
+
+})();
+
+
+
+},{"../dom-utils":4}],6:[function(require,module,exports){
 var $, Bar, SelectionMode,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
