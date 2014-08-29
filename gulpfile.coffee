@@ -30,7 +30,7 @@ gulp.task 'lint', ->
 gulp.task 'coffee', ->
   gulp.src('src/lib/*.coffee')
     .pipe transform (path) ->
-      browserify(path, extensions: '.coffee')
+      browserify(path, extensions: '.coffee', debug: true)
         .transform('coffeeify')
         .bundle()
     .pipe(rename(extname: ".js"))
