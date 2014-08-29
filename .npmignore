@@ -2,8 +2,7 @@
 
 .travis*
 History.md
-Gruntfile..coffee
-Gruntfile.js
+gulpfile.coffee
 
 src/
 /out/bin/
