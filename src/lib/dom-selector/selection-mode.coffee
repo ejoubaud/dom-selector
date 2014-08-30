@@ -10,6 +10,8 @@ module.exports = class SelectionMode
 
   start: (successCallback) ->
     document.body.addEventListener('click', @selectDom, true)
+    document.body.addEventListener('mouseover', @hover, true)
+    document.body.addEventListener('mouseout', @unhover, true)
     @showSelection()
     @bar.successCallback = successCallback
     @bar.show() if @bar.selected
@@ -17,6 +19,8 @@ module.exports = class SelectionMode
 
   stop: ->
     document.body.removeEventListener('click', @selectDom, true)
+    document.body.removeEventListener('mouseover', @hover, true)
+    document.body.removeEventListener('mouseout', @unhover, true)
     @hideSelection()
     @bar.hide()
     @started = false
@@ -31,6 +35,18 @@ module.exports = class SelectionMode
     @bar.newSelection(ev.target)
     @bar.show() unless @bar.visible
     @newSelection(ev.target)
+
+  hover: (ev) =>
+    return true if @bar.holdsElement(ev.target)
+    @removeHoverClass(@hovered) if @hovered
+    @hovered = ev.target
+    $.addClass(@hovered, 'dom-selector__hovered')
+
+  unhover: (ev) =>
+    @removeHoverClass(ev.target)
+
+  removeHoverClass: (el) ->
+    $.removeClass(el, 'dom-selector__hovered')
 
   newSelection: (newEl) ->
     @hideSelection()

@@ -126,3 +126,6 @@
 .dom-selector__highlighted {
   border: 1px solid #00f;
 }
+.dom-selector__hovered {
+  background-color: #f00;
+}
