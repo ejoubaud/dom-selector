@@ -17,9 +17,12 @@ module.exports = class BarItemRenderer
     @elem = document.createElement("li")
     @link = document.createElement("a")
     @link.className = "dom-selector__button dom-selector__elem"
-    @link.appendChild(@_createSpanWithClass(@_name(), "dom-selector__name"))
-    @link.appendChild(@_createSpanWithClass(@_id(), "dom-selector__id")) if @_hasId()
-    @link.appendChild(@_createSpanWithClass(@_classList(), "dom-selector__classes")) if @_hasClasses()
+    @textWrapper = document.createElement("span")
+    @textWrapper.className = "dom-selector__elem__text-wrapper"
+    @textWrapper.appendChild(@_createSpanWithClass(@_name(), "dom-selector__name"))
+    @textWrapper.appendChild(@_createSpanWithClass(@_id(), "dom-selector__id")) if @_hasId()
+    @textWrapper.appendChild(@_createSpanWithClass(@_classList(), "dom-selector__classes")) if @_hasClasses()
+    @link.appendChild(@textWrapper)
     @elem.appendChild(@link)
     @select() if selected
 
