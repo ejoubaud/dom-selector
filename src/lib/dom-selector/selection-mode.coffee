@@ -1,18 +1,18 @@
 $ = require('./dom-utils')
 Bar = require('./bar')
+Selection = require('./selection')
 
 module.exports = class SelectionMode
   constructor: ->
-    @selected = null
-    @selectedClass = 'dom-selector__selected'
-    @bar = new Bar(this)
+    @selection = new Selection(this)
+    @bar = new Bar(this, @selection)
     @started = false
 
   start: (successCallback) ->
     document.body.addEventListener('click', @selectDom, true)
     document.body.addEventListener('mouseover', @hover, true)
     document.body.addEventListener('mouseout', @unhover, true)
-    @showSelection()
+    @selection.show()
     @bar.successCallback = successCallback
     @bar.show() if @bar.selected
     @started = true
@@ -21,7 +21,7 @@ module.exports = class SelectionMode
     document.body.removeEventListener('click', @selectDom, true)
     document.body.removeEventListener('mouseover', @hover, true)
     document.body.removeEventListener('mouseout', @unhover, true)
-    @hideSelection()
+    @selection.hide()
     @bar.hide()
     @started = false
 
@@ -34,7 +34,7 @@ module.exports = class SelectionMode
     ev.preventDefault()
     @bar.newSelection(ev.target)
     @bar.show() unless @bar.visible
-    @newSelection(ev.target)
+    @selection.toggle(ev.target)
 
   hover: (ev) =>
     return true if @bar.holdsElement(ev.target)
@@ -47,17 +47,3 @@ module.exports = class SelectionMode
 
   removeHoverClass: (el) ->
     $.removeClass(el, 'dom-selector__hovered')
-
-  newSelection: (newEl) ->
-    @hideSelection()
-    if @selected == newEl
-      @selected = null
-    else
-      @selected = newEl
-      @showSelection()
-
-  hideSelection: ->
-    $.removeClass(@selected, @selectedClass) if @selected
-
-  showSelection: ->
-    $.addClass(@selected, @selectedClass) if @selected

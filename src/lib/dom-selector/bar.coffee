@@ -3,7 +3,7 @@ BarItem = require('./bar-item')
 BarRenderer = require('./renderers/bar')
 
 module.exports = class Bar
-  constructor: (@selectionMode) ->
+  constructor: (@selectionMode, @selection) ->
     @renderer = new BarRenderer(@ok, @cancel)
     @visible = false
     @_resetArrays()
@@ -23,7 +23,7 @@ module.exports = class Bar
     @renderer.reset(@barElems)
 
   newSelectionFromBar: (bodyEl) ->
-    @selectionMode.newSelection(bodyEl)
+    @selection.toggle(bodyEl)
     @newSelection(bodyEl)
 
   newSelection: (newEl) ->
