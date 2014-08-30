@@ -9,6 +9,7 @@
   background: #f8f8ff;
   font-family: Arial, sans-serif;
   font-size: 1em;
+  z-index: 16777271;
 }
 .dom-selector__list {
   list-style-type: none;
