@@ -3,6 +3,7 @@ rename = require('gulp-rename')
 lint = require('gulp-coffeelint')
 stylus = require('gulp-stylus')
 mocha = require('gulp-mocha')
+plumber = require('gulp-plumber')
 nib = require('nib')
 browserify = require('browserify')
 transform = require('vinyl-transform')
@@ -38,6 +39,7 @@ gulp.task 'coffee', ->
 
 gulp.task 'stylus', ->
   gulp.src('src/style/*.styl')
+    .pipe(plumber())
     .pipe(stylus(use: [nib()]))
     .pipe(rename(extname: '.css'))
     .pipe(gulp.dest('out/style'))
