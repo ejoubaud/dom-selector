@@ -111,19 +111,19 @@ apply-to-visible-children()
       box-shadow: 0 5px 0 #87d37c
       cursor: not-allowed
 
-  $hovered
-    background-color: red
-
   &__hovered
+    $apply-to-visible-children
+      background-color: red
+
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
-        @extend .dom-selector $hovered
-
-  $selected
-    border: 1px solid red
+        @extend {selector()} $apply-to-visible-children
 
   &__selected
+    $apply-to-visible-children
+      border: 1px solid red
+
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
-        @extend .dom-selector $selected
+        @extend {selector()} $apply-to-visible-children
 
