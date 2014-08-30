@@ -4,6 +4,22 @@ $shadow-size = 5px
 $hover-offset = 2px
 $arrow-side = 1em
 
+$green = #2ecc71
+$green-shadow = #1e824c
+$green-hover = #90c695
+$green-disabled-shadow = #87d37c
+$green-disabled = #c8f7c5
+
+$grey = grey
+$grey-shadow = black
+$grey-hover-shadow = #6c7a89
+$grey-hover = #bdc3c7
+
+$red = #e74c3c
+$red-shadow = #96281b
+$red-hover = #e26a6a
+
+
 shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow-color)
   background-color: $color
   box-shadow: 0 $shadow-size 0 $shadow-color
@@ -75,7 +91,7 @@ apply-to-visible-children()
 
   &__elem
     width: 5em
-    arrow-shadow-button(grey, black, #bdc3c7, #6c7a89)
+    arrow-shadow-button($grey, $grey-shadow, $grey-hover, $grey-hover-shadow)
 
     &:after
       content: ' '
@@ -91,10 +107,10 @@ apply-to-visible-children()
       transition: border-color .3s ease-out
 
     &--selected
-      arrow-shadow-button(#e74c3c, #96281b, #e26a6a)
+      arrow-shadow-button($red, $red-shadow, $red-hover)
 
   &__cancel-control
-    shadow-button(#e74c3c, #96281b, #e26a6a)
+    shadow-button($red, $red-shadow, $red-hover)
 
   &__control
     float: right
@@ -102,13 +118,13 @@ apply-to-visible-children()
     text-align: center
 
   &__ok-control
-    shadow-button(#2ecc71, #1E824C, #90C695)
+    shadow-button($green, $green-shadow, $green-hover)
 
     &--disabled,
     &--disabled:hover
       top: 0
-      background-color: #c8f7c5
-      box-shadow: 0 5px 0 #87d37c
+      background-color: $green-disabled
+      box-shadow: 0 5px 0 $green-disabled-shadow
       cursor: not-allowed
 
   &__hovered
