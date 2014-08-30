@@ -98,8 +98,23 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
       box-shadow: 0 5px 0 #87d37c
       cursor: not-allowed
 
-  &__hovered
+  $stuff
     background-color: red
+
+  &__hovered
+    @extend .dom-selector $stuff
+    table& > * > tr >
+      td, th
+        @extend .dom-selector $stuff
+    > tr >
+      td, th
+        @extend .dom-selector $stuff
+    & >
+      td, th
+        @extend .dom-selector $stuff
+    ul& > li
+      @extend .dom-selector $stuff
+
 
   &__selected
     border: 1px solid red

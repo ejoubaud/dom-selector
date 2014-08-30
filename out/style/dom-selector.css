@@ -122,7 +122,14 @@
   box-shadow: 0 5px 0 #87d37c;
   cursor: not-allowed;
 }
-.dom-selector__hovered {
+.dom-selector__hovered,
+table.dom-selector__hovered > * > tr > td,
+table.dom-selector__hovered > * > tr > th,
+.dom-selector__hovered > tr > td,
+.dom-selector__hovered > tr > th,
+.dom-selector__hovered > td,
+.dom-selector__hovered > th,
+ul.dom-selector__hovered > li {
   background-color: #f00;
 }
 .dom-selector__selected {
