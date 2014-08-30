@@ -21,6 +21,19 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
   &:hover:after
     border-right-color: $hover-color
 
+apply-to-visible-children()
+  {block}
+  table& > * > tr >
+    td, th
+      {block}
+  > tr >
+    td, th
+      {block}
+  & >
+    td, th
+      {block}
+  ul& > li
+    {block}
 
 .dom-selector
   &__bar
@@ -98,26 +111,21 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
       box-shadow: 0 5px 0 #87d37c
       cursor: not-allowed
 
-  $stuff
+  $hovered
     background-color: red
 
   &__hovered
-    @extend .dom-selector $stuff
-    table& > * > tr >
-      td, th
-        @extend .dom-selector $stuff
-    > tr >
-      td, th
-        @extend .dom-selector $stuff
-    & >
-      td, th
-        @extend .dom-selector $stuff
-    ul& > li
-      @extend .dom-selector $stuff
+    +apply-to-visible-children()
+      & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
+        @extend .dom-selector $hovered
 
+  $selected
+    border: 1px solid red
 
   &__selected
-    border: 1px solid red
+    +apply-to-visible-children()
+      & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
+        @extend .dom-selector $selected
 
   &__highlighted
     border: 1px solid blue

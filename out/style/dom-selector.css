@@ -132,7 +132,14 @@ table.dom-selector__hovered > * > tr > th,
 ul.dom-selector__hovered > li {
   background-color: #f00;
 }
-.dom-selector__selected {
+.dom-selector__selected,
+table.dom-selector__selected > * > tr > td,
+table.dom-selector__selected > * > tr > th,
+.dom-selector__selected > tr > td,
+.dom-selector__selected > tr > th,
+.dom-selector__selected > td,
+.dom-selector__selected > th,
+ul.dom-selector__selected > li {
   border: 1px solid #f00;
 }
 .dom-selector__highlighted {
