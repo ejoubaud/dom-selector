@@ -9,14 +9,14 @@ module.exports = class SelectionMode
     @started = false
 
   start: (successCallback) ->
-    document.body.addEventListener('click', @selectDom)
+    document.body.addEventListener('click', @selectDom, true)
     @showSelection()
     @bar.successCallback = successCallback
     @bar.show() if @bar.selected
     @started = true
 
   stop: ->
-    document.body.removeEventListener('click', @selectDom)
+    document.body.removeEventListener('click', @selectDom, true)
     @hideSelection()
     @bar.hide()
     @started = false
@@ -25,8 +25,9 @@ module.exports = class SelectionMode
     if @started then @stop() else @start(successCallback)
 
   selectDom: (ev) =>
+    return true if @bar.holdsElement(ev.target)
     ev.stopPropagation()
-    return false if @bar.holdsElement(ev.target)
+    ev.preventDefault()
     @bar.newSelection(ev.target)
     @bar.show() unless @bar.visible
     @newSelection(ev.target)
