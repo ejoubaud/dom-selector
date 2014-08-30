@@ -122,12 +122,12 @@
   box-shadow: 0 5px 0 #87d37c;
   cursor: not-allowed;
 }
+.dom-selector__hovered {
+  background-color: #f00;
+}
 .dom-selector__selected {
   border: 1px solid #f00;
 }
 .dom-selector__highlighted {
   border: 1px solid #00f;
-}
-.dom-selector__hovered {
-  background-color: #f00;
 }
