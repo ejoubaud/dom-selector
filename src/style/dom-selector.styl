@@ -26,7 +26,7 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
   &__bar
     position: fixed
     width: 100%
-    padding: 0 0 $shadow-size 0
+    padding: 0
     margin: 0
     bottom: 0
     left: 0
@@ -53,6 +53,7 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
     white-space: nowrap
     color: white
     cursor: pointer
+    overflow: hidden
     transition: background-color .3s ease-out
 
     &:hover
