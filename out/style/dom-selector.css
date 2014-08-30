@@ -142,6 +142,3 @@ table.dom-selector__selected > * > tr > th,
 ul.dom-selector__selected > li {
   border: 1px solid #f00;
 }
-.dom-selector__highlighted {
-  border: 1px solid #00f;
-}
