@@ -4,8 +4,10 @@ module.exports = class BarItemRenderer
   constructor: (@modelEl, selected = false) ->
     @_createItem()
 
-  addClickListener: (listener) ->
-    @link.addEventListener('click', listener)
+  addListeners: (click, hover, unhover) ->
+    @link.addEventListener('click', click)
+    @link.addEventListener('mouseover', hover)
+    @link.addEventListener('mouseout', unhover)
 
   _createItem: ->
     @elem = document.createElement("li")

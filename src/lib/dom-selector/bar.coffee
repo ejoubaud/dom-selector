@@ -4,8 +4,9 @@ BarRenderer = require('./renderers/bar')
 Selection = require('./selection')
 
 module.exports = class Bar
-  constructor: (@selectionMode, @selection) ->
+  constructor: (@selectionMode, @selection, @hover) ->
     @barItemSelection = new Selection('dom-selector__elem--selected')
+    @barHover = new Selection('dom-selector__elem--hovered')
     @renderer = new BarRenderer(@okHandler, @cancelHandler)
     @visible = false
     @_resetArrays()
@@ -25,6 +26,13 @@ module.exports = class Bar
     else
       @_unselect()
 
+  updateHover: ->
+    hoveredEl = @hover.selected
+    if hoveredEl && (barItem = @_barElemIfShownAlready(hoveredEl))
+      barItem.hoverize()
+    else
+      @barHover.unselect()
+
   holdsElement: (el) ->
     @renderer.holdsElement(el)
 
@@ -36,7 +44,7 @@ module.exports = class Bar
 
   _select: ->
     @renderer.enableOkControl()
-    if (@selectedBarElem = @_barElemIfShownAlready())
+    if (@selectedBarElem = @_barElemIfShownAlready(@selection.selected))
       @selectedBarElem.select()
     else
       @_reset()
@@ -45,8 +53,8 @@ module.exports = class Bar
     @selectedBarElem = null
     @renderer.disableOkControl()
 
-  _barElemIfShownAlready: ->
-    idx = $.inArray(@selection.selected, @referencedElems)
+  _barElemIfShownAlready: (el) ->
+    idx = $.inArray(el, @referencedElems)
     if idx >= 0 then @barElems[idx] else null
 
   cancelHandler: =>
@@ -59,7 +67,7 @@ module.exports = class Bar
   _generateList: (el) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @_generateList(el.parentNode)
-    barItem = new BarItem(el, this, @selection, @barItemSelection)
+    barItem = new BarItem(el, this, @selection, @barItemSelection, @hover, @barHover)
     barItem.select() if @selection.selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)

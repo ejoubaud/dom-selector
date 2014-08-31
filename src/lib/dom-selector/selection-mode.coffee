@@ -38,8 +38,9 @@ module.exports = class SelectionMode
 
   hoverHandler: (ev) =>
     return true if @bar.holdsElement(ev.target)
-    @hover.unselect()
-    @hover.select(ev.target)
+    @hover.toggle(ev.target)
+    @bar.updateHover()
 
   unhoverHandler: =>
     @hover.unselect()
+    @bar.updateHover()
