@@ -1,7 +1,8 @@
 BarItemRenderer = require('./renderers/bar-item')
 
 module.exports = class BarItem
-  constructor: (@modelEl, @bar, @selection, @barItemSelection, @hover, @barHover) ->
+  constructor: (@modelEl, @bar, selections) ->
+    {@selection, @barItemSelection, @hover, @barHover} = selections
     @renderer = new BarItemRenderer(modelEl)
     @renderer.addListeners(@clickHandler, @hoverHandler, @unhoverHandler)
     @elem = @renderer.elem

@@ -7,6 +7,7 @@ module.exports = class Bar
   constructor: (@selectionMode, @selection, @hover) ->
     @barItemSelection = new Selection('dom-selector__elem--selected')
     @barHover = new Selection('dom-selector__elem--hovered')
+    @selections = {@selection, @barItemSelection, @hover, @barHover}
     @renderer = new BarRenderer(@okHandler, @cancelHandler)
     @visible = false
     @_resetArrays()
@@ -63,7 +64,7 @@ module.exports = class Bar
   _generateList: (el) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @_generateList(el.parentNode)
-    barItem = new BarItem(el, this, @selection, @barItemSelection, @hover, @barHover)
+    barItem = new BarItem(el, this, @selections)
     barItem.select() if @selection.selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)
