@@ -14,7 +14,7 @@ module.exports = class SelectionMode
     document.body.addEventListener('mouseout', @unhoverHandler, true)
     @selection.show()
     @bar.successCallback = successCallback
-    @bar.show() if @bar.selected
+    @bar.show() if @selection.selected
     @started = true
 
   stop: ->
