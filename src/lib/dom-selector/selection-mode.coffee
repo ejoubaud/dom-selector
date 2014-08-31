@@ -32,9 +32,9 @@ module.exports = class SelectionMode
     return true if @bar.holdsElement(ev.target)
     ev.stopPropagation()
     ev.preventDefault()
-    @bar.newSelection(ev.target)
-    @bar.show() unless @bar.visible
     @selection.toggle(ev.target)
+    @bar.update()
+    @bar.show() unless @bar.visible
 
   hoverHandler: (ev) =>
     return true if @bar.holdsElement(ev.target)

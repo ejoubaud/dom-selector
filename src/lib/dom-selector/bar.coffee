@@ -18,44 +18,58 @@ module.exports = class Bar
     @renderer.hide()
     @visible = false
 
-  reset: (newTipEl) ->
-    @tip = @selected = newTipEl
-    @_resetArrays()
-    @_generateList(newTipEl)
-    @renderer.reset(@barElems)
-
   newSelectionFromBar: (bodyEl) ->
     @bodySelection.toggle(bodyEl)
-    @newSelection(bodyEl)
+    @update()
 
-  newSelection: (newEl) ->
-    @selectedBarElem.unselect() if @selectedBarElem
-    @renderer.enableOkControl() unless @selected
-    if @selected == newEl
-      @selected = @selectedBarElem = null
-      @renderer.disableOkControl()
-    else if (idx = $.inArray(newEl, @referencedElems)) >= 0
-      @selectedBarElem = @barElems[idx]
-      @selectedBarElem.select()
-      @selected = newEl
+  update: ->
+    @selectedBarElem?.unselect()
+    if @bodySelection.selected
+      @_select()
     else
-      @reset(newEl)
+      @_unselect()
+
+  holdsElement: (el) ->
+    @renderer.holdsElement(el)
+
+  _reset: ->
+    @tip = @bodySelection.selected
+    @_resetArrays()
+    @_generateList(@bodySelection.selected)
+    @renderer.reset(@barElems)
+
+  _select: ->
+    @renderer.enableOkControl()
+    if (barItem = @_barElemIfShownAlready())
+      @_highlight(barItem)
+    else
+      @_reset()
+
+  _unselect: ->
+    @selectedBarElem = null
+    @renderer.disableOkControl()
+
+  _highlight: (newSelectedBarItem) ->
+    @selectedBarElem.unselect()
+    @selectedBarElem = newSelectedBarItem
+    @selectedBarElem.select()
+
+  _barElemIfShownAlready: ->
+    idx = $.inArray(@bodySelection.selected, @referencedElems)
+    if idx >= 0 then @barElems[idx] else null
 
   cancel: =>
     @selectionMode.stop()
 
   ok: =>
     @selectionMode.stop()
-    @successCallback?(@selected)
-
-  holdsElement: (el) ->
-    @renderer.holdsElement(el)
+    @successCallback?(@bodySelection.selected)
 
   _generateList: (el) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @_generateList(el.parentNode)
     barItem = new BarItem(el, this, @barSelection)
-    barItem.select() if @selected == el
+    barItem.select() if @bodySelection.selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)
     @selectedBarElem = barItem
