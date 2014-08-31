@@ -1,9 +1,11 @@
 $ = require('./dom-utils')
 BarItem = require('./bar-item')
 BarRenderer = require('./renderers/bar')
+Selection = require('./selection')
 
 module.exports = class Bar
-  constructor: (@selectionMode, @selection) ->
+  constructor: (@selectionMode, @bodySelection) ->
+    @barSelection = new Selection('dom-selector__elem--selected')
     @renderer = new BarRenderer(@ok, @cancel)
     @visible = false
     @_resetArrays()
@@ -23,7 +25,7 @@ module.exports = class Bar
     @renderer.reset(@barElems)
 
   newSelectionFromBar: (bodyEl) ->
-    @selection.toggle(bodyEl)
+    @bodySelection.toggle(bodyEl)
     @newSelection(bodyEl)
 
   newSelection: (newEl) ->
@@ -52,7 +54,8 @@ module.exports = class Bar
   _generateList: (el) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @_generateList(el.parentNode)
-    barItem = new BarItem(el, this, @selected == el)
+    barItem = new BarItem(el, this, @barSelection)
+    barItem.select() if @selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)
     @selectedBarElem = barItem
