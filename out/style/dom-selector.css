@@ -6,15 +6,21 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #f8f8ff;
   font-family: Arial, sans-serif;
   font-size: 1em;
   z-index: 16777271;
 }
 .dom-selector__list {
+  position: relative;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  z-index: -1;
+  -webkit-animation: scroll-left 0.4s ease-in-out;
+  -moz-animation: scroll-left 0.4s ease-in-out;
+  -o-animation: scroll-left 0.4s ease-in-out;
+  -ms-animation: scroll-left 0.4s ease-in-out;
+  animation: scroll-left 0.4s ease-in-out;
 }
 .dom-selector__list li {
   display: inline;
@@ -111,6 +117,11 @@
   float: right;
   width: 2em;
   text-align: center;
+  -webkit-animation: scroll-right 0.4s ease-in-out;
+  -moz-animation: scroll-right 0.4s ease-in-out;
+  -o-animation: scroll-right 0.4s ease-in-out;
+  -ms-animation: scroll-right 0.4s ease-in-out;
+  animation: scroll-right 0.4s ease-in-out;
 }
 .dom-selector__ok-control {
   background-color: #2ecc71;
@@ -171,4 +182,92 @@ ul.dom-selector__selected > li {
   -ms-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   cursor: pointer;
+}
+@-moz-keyframes scroll-left {
+  from {
+    left: -100%;
+  }
+  80% {
+    left: 3%;
+  }
+  to {
+    left: 0;
+  }
+}
+@-webkit-keyframes scroll-left {
+  from {
+    left: -100%;
+  }
+  80% {
+    left: 3%;
+  }
+  to {
+    left: 0;
+  }
+}
+@-o-keyframes scroll-left {
+  from {
+    left: -100%;
+  }
+  80% {
+    left: 3%;
+  }
+  to {
+    left: 0;
+  }
+}
+@keyframes scroll-left {
+  from {
+    left: -100%;
+  }
+  80% {
+    left: 3%;
+  }
+  to {
+    left: 0;
+  }
+}
+@-moz-keyframes scroll-right {
+  from {
+    right: -100%;
+  }
+  80% {
+    right: 3%;
+  }
+  to {
+    right: 0;
+  }
+}
+@-webkit-keyframes scroll-right {
+  from {
+    right: -100%;
+  }
+  80% {
+    right: 3%;
+  }
+  to {
+    right: 0;
+  }
+}
+@-o-keyframes scroll-right {
+  from {
+    right: -100%;
+  }
+  80% {
+    right: 3%;
+  }
+  to {
+    right: 0;
+  }
+}
+@keyframes scroll-right {
+  from {
+    right: -100%;
+  }
+  80% {
+    right: 3%;
+  }
+  to {
+    right: 0;
+  }
 }
