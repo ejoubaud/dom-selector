@@ -5,7 +5,7 @@ module.exports = class Selection
 
   toggle: (el) ->
     old = @selected
-    @unselect() if @selected
+    @unselect()
     @select(el) unless @old == el
 
   select: (element) ->
@@ -14,9 +14,10 @@ module.exports = class Selection
     @selected = element
 
   unselect: ->
-    @renderer.hide()
-    @selected = null
-    @renderer = null
+    if @selected
+      @renderer.hide()
+      @selected = null
+      @renderer = null
 
   show: ->
     @renderer?.show()
