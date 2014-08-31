@@ -13,6 +13,7 @@ Licensed under the MIT license.
 SelectionMode = require('./dom-selector/selection-mode')
 
 domSelector = new SelectionMode()
+
 if typeof window == 'undefined'
   exports = domSelector
 else
