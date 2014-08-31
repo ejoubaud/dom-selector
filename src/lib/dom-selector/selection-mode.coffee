@@ -5,11 +5,11 @@ module.exports = class SelectionMode
   constructor: ->
     @selection = new Selection('dom-selector__selected')
     @hover = new Selection('dom-selector__hovered')
-    @bar = new Bar(this, @selection)
+    @bar = new Bar(this, @selection, @hover)
     @started = false
 
   start: (successCallback) ->
-    document.body.addEventListener('click', @selectDom, true)
+    document.body.addEventListener('click', @clickHandler, true)
     document.body.addEventListener('mouseover', @hoverHandler, true)
     document.body.addEventListener('mouseout', @unhoverHandler, true)
     @selection.show()
@@ -18,7 +18,7 @@ module.exports = class SelectionMode
     @started = true
 
   stop: ->
-    document.body.removeEventListener('click', @selectDom, true)
+    document.body.removeEventListener('click', @clickHandler, true)
     document.body.removeEventListener('mouseover', @hoverHandler, true)
     document.body.removeEventListener('mouseout', @unhoverHandler, true)
     @selection.hide()
@@ -28,7 +28,7 @@ module.exports = class SelectionMode
   toggle: (successCallback) ->
     if @started then @stop() else @start(successCallback)
 
-  selectDom: (ev) =>
+  clickHandler: (ev) =>
     return true if @bar.holdsElement(ev.target)
     ev.stopPropagation()
     ev.preventDefault()
