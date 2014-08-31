@@ -20,11 +20,11 @@ module.exports = class Bar
     @visible = false
 
   update: ->
-    @selectedBarElem?.unselect()
     if @selection.selected
       @_select()
     else
-      @_unselect()
+      @barItemSelection.unselect()
+      @renderer.disableOkControl()
 
   updateHover: ->
     hoveredEl = @hover.selected
@@ -44,14 +44,10 @@ module.exports = class Bar
 
   _select: ->
     @renderer.enableOkControl()
-    if (@selectedBarElem = @_barElemIfShownAlready(@selection.selected))
-      @selectedBarElem.select()
+    if (barItem = @_barElemIfShownAlready(@selection.selected))
+      barItem.select()
     else
       @_reset()
-
-  _unselect: ->
-    @selectedBarElem = null
-    @renderer.disableOkControl()
 
   _barElemIfShownAlready: (el) ->
     idx = $.inArray(el, @referencedElems)
@@ -71,7 +67,6 @@ module.exports = class Bar
     barItem.select() if @selection.selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)
-    @selectedBarElem = barItem
 
   _resetArrays: ->
     @referencedElems = []
