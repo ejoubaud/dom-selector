@@ -133,7 +133,17 @@ table.dom-selector__hovered > * > tr > th,
 .dom-selector__hovered > td,
 .dom-selector__hovered > th,
 ul.dom-selector__hovered > li {
-  background-color: #f00;
+  background-color: #bdc3c7 !important;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 2px #6c7a89;
+  box-shadow: 0 2px #6c7a89;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
 }
 .dom-selector__selected,
 table.dom-selector__selected > * > tr > td,
@@ -143,5 +153,15 @@ table.dom-selector__selected > * > tr > th,
 .dom-selector__selected > td,
 .dom-selector__selected > th,
 ul.dom-selector__selected > li {
-  border: 1px solid #f00;
+  background-color: #e74c3c !important;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 2px #96281b;
+  box-shadow: 0 2px #96281b;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
 }

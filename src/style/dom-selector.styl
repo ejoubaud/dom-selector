@@ -51,6 +51,14 @@ apply-to-visible-children()
   ul& > li
     {block}
 
+selection($color, $shadow-color)
+  background-color: $color!important
+  border-radius: 3px
+  box-shadow: 0 2px $shadow-color
+  transition: all .2s ease-in
+  cursor: pointer
+
+
 .dom-selector
   &__bar
     position: fixed
@@ -132,7 +140,7 @@ apply-to-visible-children()
 
   &__hovered
     $apply-to-visible-children
-      background-color: red
+      selection($grey-hover, $grey-hover-shadow)
 
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
@@ -140,7 +148,7 @@ apply-to-visible-children()
 
   &__selected
     $apply-to-visible-children
-      border: 1px solid red
+      selection($red, $red-shadow)
 
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
