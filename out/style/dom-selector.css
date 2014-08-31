@@ -35,15 +35,14 @@
   -ms-transition: background-color 0.3s ease-out;
   transition: background-color 0.3s ease-out;
 }
-.dom-selector__button:hover {
-  top: 2px;
-}
 .dom-selector__elem {
   background-color: #808080;
   -webkit-box-shadow: 0 5px 0 #000;
   box-shadow: 0 5px 0 #000;
 }
-.dom-selector__elem:hover {
+.dom-selector__elem:hover,
+.dom-selector__elem.dom-selector__elem--hovered {
+  top: 2px;
   background-color: #bdc3c7;
   -webkit-box-shadow: 0 3px 0 #6c7a89;
   box-shadow: 0 3px 0 #6c7a89;
@@ -51,7 +50,8 @@
 .dom-selector__elem:after {
   border-right-color: #808080;
 }
-.dom-selector__elem:hover:after {
+.dom-selector__elem:hover:after,
+.dom-selector__elem.dom-selector__elem--hovered:after {
   border-right-color: #bdc3c7;
 }
 .dom-selector__elem:after {
@@ -76,7 +76,9 @@
   -webkit-box-shadow: 0 5px 0 #96281b;
   box-shadow: 0 5px 0 #96281b;
 }
-.dom-selector__elem--selected:hover {
+.dom-selector__elem--selected:hover,
+.dom-selector__elem--selected.dom-selector__elem--hovered {
+  top: 2px;
   background-color: #e26a6a;
   -webkit-box-shadow: 0 3px 0 #96281b;
   box-shadow: 0 3px 0 #96281b;
@@ -84,7 +86,8 @@
 .dom-selector__elem--selected:after {
   border-right-color: #e74c3c;
 }
-.dom-selector__elem--selected:hover:after {
+.dom-selector__elem--selected:hover:after,
+.dom-selector__elem--selected.dom-selector__elem--hovered:after {
   border-right-color: #e26a6a;
 }
 .dom-selector__elem__text-wrapper {
@@ -97,7 +100,9 @@
   -webkit-box-shadow: 0 5px 0 #96281b;
   box-shadow: 0 5px 0 #96281b;
 }
-.dom-selector__cancel-control:hover {
+.dom-selector__cancel-control:hover,
+.dom-selector__cancel-control.dom-selector__elem--hovered {
+  top: 2px;
   background-color: #e26a6a;
   -webkit-box-shadow: 0 3px 0 #96281b;
   box-shadow: 0 3px 0 #96281b;
@@ -112,7 +117,9 @@
   -webkit-box-shadow: 0 5px 0 #1e824c;
   box-shadow: 0 5px 0 #1e824c;
 }
-.dom-selector__ok-control:hover {
+.dom-selector__ok-control:hover,
+.dom-selector__ok-control.dom-selector__elem--hovered {
+  top: 2px;
   background-color: #90c695;
   -webkit-box-shadow: 0 3px 0 #1e824c;
   box-shadow: 0 3px 0 #1e824c;

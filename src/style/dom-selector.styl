@@ -24,7 +24,8 @@ shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $shadow
   background-color: $color
   box-shadow: 0 $shadow-size 0 $shadow-color
 
-  &:hover
+  &:hover, &.dom-selector__elem--hovered
+    top: $hover-offset
     background-color: $hover-color
     box-shadow: 0 ($shadow-size - $hover-offset) 0 $hover-shadow-color // TODO: This may be rarely needed and optional
 
@@ -34,7 +35,7 @@ arrow-shadow-button($color, $shadow-color, $hover-color, $hover-shadow-color = $
   &:after
     border-right-color: $color
 
-  &:hover:after
+  &:hover:after, &.dom-selector__elem--hovered:after
     border-right-color: $hover-color
 
 apply-to-visible-children()
@@ -92,9 +93,6 @@ selection($color, $shadow-color)
     color: white
     cursor: pointer
     transition: background-color .3s ease-out
-
-    &:hover
-      top: $hover-offset
 
   &__elem
     arrow-shadow-button($grey, $grey-shadow, $grey-hover, $grey-hover-shadow)
