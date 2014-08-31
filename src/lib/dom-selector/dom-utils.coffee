@@ -8,13 +8,13 @@ module.exports =
   addClass: (el, clazz) ->
     el.className += ' ' + clazz
 
-  hasParent: (el, potentialParent) ->
+  hasParent: (el, parent) ->
     if el.parentNode
-      el.parentNode == potentialParent || @hasParent(el.parentNode, potentialParent)
+      el.parentNode == parent || @hasParent(el.parentNode, parent)
     else
       false
 
-# jQuery can make up for browsers not supporting required ES5 features (forEach, querySelectorAll),
+# jQuery can make up for browsers not supporting required ES5 features
 # but is not needed for IE9+ compatibility
 if @$ && @$.each && @$.inArray
   module.exports.$ = @$
@@ -24,6 +24,7 @@ else
   module.exports.$ = (sel) ->
     document.querySelectorAll.call(document, sel)
   module.exports.each = (array, iterator) ->
-    Array.prototype.forEach.call(array, (idx, elem) -> iterator.call(array, elem, idx))
+    Array.prototype.forEach.call array, (idx, elem) ->
+      iterator.call(array, elem, idx)
   module.exports.inArray = (val, array, idx) ->
     Array.prototype.indexOf.call(array, val, idx)

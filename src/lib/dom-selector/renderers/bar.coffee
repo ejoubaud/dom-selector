@@ -41,7 +41,8 @@ module.exports = class BarRenderer
     content = ok: "&#10003;", cancel: "&#10007;"
     $.each ['cancel', 'ok'], (i, name) =>
       c = @["#{name}Control"] = document.createElement("a")
-      c.className = "dom-selector__button dom-selector__control dom-selector__#{name}-control"
+      c.className = "dom-selector__button dom-selector__control"
+      c.className += " dom-selector__#{name}-control"
       c.innerHTML = content[name]
       @element.appendChild(c)
     @disableOkControl()
