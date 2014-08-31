@@ -6,7 +6,7 @@ module.exports = class Selection
   toggle: (el) ->
     old = @selected
     @unselect()
-    @select(el) unless @old == el
+    @select(el) unless old == el
 
   select: (element) ->
     @renderer = new ClassRenderer(element, @className)
