@@ -11,9 +11,7 @@ module.exports = class BarItem
     @bar.newSelectionFromBar(@modelEl)
 
   select: ->
-    @selected = true
     @renderer.select()
 
   unselect: ->
-    @selected = false
     @renderer.unselect()
