@@ -18,10 +18,6 @@ module.exports = class Bar
     @renderer.hide()
     @visible = false
 
-  newSelectionFromBar: (bodyEl) ->
-    @selection.toggle(bodyEl)
-    @update()
-
   update: ->
     @selectedBarElem?.unselect()
     if @selection.selected
@@ -63,7 +59,7 @@ module.exports = class Bar
   _generateList: (el) ->
     if el.parentElement && el.nodeName.toLowerCase() != 'body'
       @_generateList(el.parentNode)
-    barItem = new BarItem(el, this, @barItemSelection)
+    barItem = new BarItem(el, this, @selection, @barItemSelection)
     barItem.select() if @selection.selected == el
     @referencedElems.push(el)
     @barElems.push(barItem)
