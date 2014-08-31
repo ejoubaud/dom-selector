@@ -4,7 +4,7 @@ Selection = require('./selection')
 
 module.exports = class SelectionMode
   constructor: ->
-    @selection = new Selection(this)
+    @selection = new Selection('dom-selector__selected')
     @bar = new Bar(this, @selection)
     @started = false
 

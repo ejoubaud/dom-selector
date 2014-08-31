@@ -1,7 +1,7 @@
-SelectionRenderer = require('./renderers/selection')
+ClassRenderer = require('./renderers/class')
 
 module.exports = class Selection
-  constructor: (@selectionMode) ->
+  constructor: (@className) ->
 
   toggle: (el) ->
     old = @selected
@@ -9,7 +9,7 @@ module.exports = class Selection
     @select(el) unless @old == el
 
   select: (element) ->
-    @renderer = new SelectionRenderer(element)
+    @renderer = new ClassRenderer(element, @className)
     @renderer.show()
     @selected = element
 
