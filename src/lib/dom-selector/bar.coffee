@@ -6,7 +6,7 @@ Selection = require('./selection')
 module.exports = class Bar
   constructor: (@selectionMode, @selection) ->
     @barItemSelection = new Selection('dom-selector__elem--selected')
-    @renderer = new BarRenderer(@ok, @cancel)
+    @renderer = new BarRenderer(@okHandler, @cancelHandler)
     @visible = false
     @_resetArrays()
 
@@ -53,10 +53,10 @@ module.exports = class Bar
     idx = $.inArray(@selection.selected, @referencedElems)
     if idx >= 0 then @barElems[idx] else null
 
-  cancel: =>
+  cancelHandler: =>
     @selectionMode.stop()
 
-  ok: =>
+  okHandler: =>
     @selectionMode.stop()
     @successCallback?(@selection.selected)
 
