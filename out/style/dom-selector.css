@@ -16,11 +16,11 @@
   padding: 0;
   margin: 0;
   z-index: -1;
-  -webkit-animation: scroll-left 0.4s ease-in-out;
-  -moz-animation: scroll-left 0.4s ease-in-out;
-  -o-animation: scroll-left 0.4s ease-in-out;
-  -ms-animation: scroll-left 0.4s ease-in-out;
-  animation: scroll-left 0.4s ease-in-out;
+  -webkit-animation: scroll-left 0.5s ease-in-out;
+  -moz-animation: scroll-left 0.5s ease-in-out;
+  -o-animation: scroll-left 0.5s ease-in-out;
+  -ms-animation: scroll-left 0.5s ease-in-out;
+  animation: scroll-left 0.5s ease-in-out;
 }
 .dom-selector__list li {
   display: inline;
@@ -117,11 +117,11 @@
   float: right;
   width: 2em;
   text-align: center;
-  -webkit-animation: scroll-right 0.4s ease-in-out;
-  -moz-animation: scroll-right 0.4s ease-in-out;
-  -o-animation: scroll-right 0.4s ease-in-out;
-  -ms-animation: scroll-right 0.4s ease-in-out;
-  animation: scroll-right 0.4s ease-in-out;
+  -webkit-animation: scroll-right 0.5s ease-in-out;
+  -moz-animation: scroll-right 0.5s ease-in-out;
+  -o-animation: scroll-right 0.5s ease-in-out;
+  -ms-animation: scroll-right 0.5s ease-in-out;
+  animation: scroll-right 0.5s ease-in-out;
 }
 .dom-selector__ok-control {
   background-color: #2ecc71;
@@ -143,6 +143,12 @@
   box-shadow: 0 5px 0 #87d37c;
   cursor: not-allowed;
 }
+.dom-selector__hovered {
+  -webkit-box-shadow: 0 2px #6c7a89;
+  box-shadow: 0 2px #6c7a89;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
 .dom-selector__hovered,
 table.dom-selector__hovered > * > tr > td,
 table.dom-selector__hovered > * > tr > th,
@@ -152,16 +158,18 @@ table.dom-selector__hovered > * > tr > th,
 .dom-selector__hovered > th,
 ul.dom-selector__hovered > li {
   background-color: #bdc3c7 !important;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 2px #6c7a89;
-  box-shadow: 0 2px #6c7a89;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   -ms-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   cursor: pointer;
+}
+.dom-selector__selected {
+  -webkit-box-shadow: 0 2px #96281b;
+  box-shadow: 0 2px #96281b;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 .dom-selector__selected,
 table.dom-selector__selected > * > tr > td,
@@ -172,10 +180,6 @@ table.dom-selector__selected > * > tr > th,
 .dom-selector__selected > th,
 ul.dom-selector__selected > li {
   background-color: #e74c3c !important;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 2px #96281b;
-  box-shadow: 0 2px #96281b;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;

@@ -52,10 +52,8 @@ apply-to-visible-children()
   ul& > li
     {block}
 
-selection($color, $shadow-color)
+selection($color)
   background-color: $color!important
-  border-radius: 3px
-  box-shadow: 0 2px $shadow-color
   transition: all .2s ease-in
   cursor: pointer
 
@@ -84,7 +82,7 @@ selection($color, $shadow-color)
     padding: 0
     margin: 0
     z-index: -1
-    animation: scroll-left .4s ease-in-out
+    animation: scroll-left .5s ease-in-out
 
     li
       display: inline
@@ -132,7 +130,7 @@ selection($color, $shadow-color)
     float: right
     width: 2em
     text-align: center
-    animation: scroll-right .4s ease-in-out
+    animation: scroll-right .5s ease-in-out
 
   &__ok-control
     shadow-button($green, $green-shadow, $green-hover)
@@ -145,16 +143,22 @@ selection($color, $shadow-color)
       cursor: not-allowed
 
   &__hovered
+    box-shadow: 0 2px $grey-hover-shadow
+    border-radius: 3px
+
     $apply-to-visible-children
-      selection($grey-hover, $grey-hover-shadow)
+      selection($grey-hover)
 
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
         @extend {selector()} $apply-to-visible-children
 
   &__selected
+    box-shadow: 0 2px $red-shadow
+    border-radius: 3px
+
     $apply-to-visible-children
-      selection($red, $red-shadow)
+      selection($red)
 
     +apply-to-visible-children()
       & // TODO: Remove this workaround for @extend in block mixins once https://github.com/LearnBoost/stylus/issues/1507 is fixed
