@@ -27,7 +27,7 @@
     "coffeeify": "^0.7.0",
     "coffee-script": "^1.8.0",
     "gulp": "^3.8.7",
-    "gulp-coffeelint": "ejoubaud/gulp-coffeelint#private-release",
+    "gulp-coffeelint": "^0.4.0",
     "gulp-mocha": "^1.0.0",
     "gulp-plumber": "^0.6.5",
     "gulp-rename": "^1.2.0",
