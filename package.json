@@ -1,6 +1,6 @@
 {
   "name": "dom-selector",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "lib/dom-selector.js",
   "description": "A nice UI for users to select dom elements",
   "homepage": "https://github.com/ejoubaud/dom-selector",
