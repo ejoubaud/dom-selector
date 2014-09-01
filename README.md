@@ -1,4 +1,4 @@
-# dom-selector [![Build Status](https://secure.travis-ci.org/ejoubaud/dom-selector.png?branch=master)](http://travis-ci.org/ejoubaud/dom-selector)
+# dom-selector
 
 A friendly UI to let users to select dom elements.
 
