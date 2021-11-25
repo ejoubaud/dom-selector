@@ -206,7 +206,7 @@ module.exports = {
   removeClass: function(el, clazz) {
     var regex;
     regex = new RegExp("(^| )" + clazz + '(?=$| )', 'g');
-    return el.className = el.className.replace(regex, '');
+    return el.className = el.className.toString().replace(regex, '');
   },
   addClass: function(el, clazz) {
     return el.className += ' ' + clazz;
@@ -298,7 +298,7 @@ module.exports = BarItemRenderer = (function() {
   };
 
   BarItemRenderer.prototype._classes = function() {
-    return this.modelEl.className.replace(/(^| )+/g, '.');
+    return this.modelEl.className.toString().replace(/(^| )+/g, '.');
   };
 
   BarItemRenderer.prototype._name = function() {
